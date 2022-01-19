@@ -28,11 +28,13 @@ class PermissionsTableSeeder extends Seeder
         }
 
         Permission::generateFor('menus');
-
         Permission::generateFor('roles');
-
         Permission::generateFor('users');
-
         Permission::generateFor('settings');
+        Permission::generateFor('permissions');
+        Permission::generateFor('customers');
+        Permission::generateFor('products_brands');
+        Permission::generateFor('products_categories');
+        Permission::generateFor('products');
     }
 }
