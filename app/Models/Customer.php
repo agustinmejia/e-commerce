@@ -20,4 +20,8 @@ class Customer extends Model
         'type',
         'status'
     ];
+
+    public function sales(){
+        return $this->hasMany(Sale::class);
+    }
 }

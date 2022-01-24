@@ -2,6 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 
+// Controllers
+use App\Http\Controllers\PurchasesController;
+use App\Http\Controllers\ProductsControllers;
+use App\Http\Controllers\SalesController;
+use App\Http\Controllers\CustomersController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,6 +30,21 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
+
+    // Purchases
+    Route::resource('purchases', PurchasesController::class);
+    Route::get('purchases/list/ajax', [PurchasesController::class, 'list']);
+
+    // Products
+    Route::get('products/list/ajax', [ProductsControllers::class, 'list']);
+
+    // Customers
+    Route::get('customers/list/ajax', [CustomersController::class, 'list']);
+
+    // Sales
+    Route::resource('sales', SalesController::class);
+    Route::get('sales/list/ajax', [SalesController::class, 'list']);
+    Route::post('sales/payments/store', [SalesController::class, 'payments_store'])->name('sales.payments.store');
 });
 
 // Clear cache

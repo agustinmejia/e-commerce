@@ -23,4 +23,18 @@ class Product extends Model
         'images',
         'status'
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(ProductsCategory::class, 'products_category_id');
+    }
+
+    public function brand()
+    {
+        return $this->belongsTo(ProductsBrand::class, 'products_brand_id');
+    }
+
+    public function sales_details(){
+        return $this->hasMany(SalesDetail::class);
+    }
 }

@@ -976,7 +976,7 @@ class DataRowsTableSeeder extends Seeder
                 'edit' => 1,
                 'add' => 1,
                 'delete' => 1,
-                'details' => '{"validation":{"rule":"required"},"display":{"width":6},"step":0.1,"min":0}',
+                'details' => '{"display":{"width":6},"step":0.1,"min":0}',
                 'order' => 10,
             ),
             60 => 
@@ -1003,7 +1003,7 @@ class DataRowsTableSeeder extends Seeder
                 'type' => 'multiple_images',
                 'display_name' => 'Imagenes',
                 'required' => 0,
-                'browse' => 1,
+                'browse' => 0,
                 'read' => 1,
                 'edit' => 1,
                 'add' => 1,

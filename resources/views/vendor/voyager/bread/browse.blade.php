@@ -75,7 +75,7 @@
                             </form>
                         @endif
                         <div class="table-responsive">
-                            <table id="dataTable" class="table table-hover">
+                            <table id="dataTable" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
                                         @if($showCheckboxColumn)

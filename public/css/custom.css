@@ -1,0 +1,26 @@
+
+.form-control, .select2-selection, .mce-tinymce {
+    border: 1px solid #c3c5c7 !important;
+    color: #555555
+}
+.form-group label, .control-label{
+    color: #555555 !important
+}
+.container-fluid, .app-container{
+    /* background-image: linear-gradient(#D5D8DC, #FFF) !important; */
+    background-color: #eeeeee;
+}
+
+.panel-bordered{
+    box-shadow: 0 0 1px rgb(0 0 0 / 13%), 0 1px 3px rgb(0 0 0 / 20%) !important;
+    margin-bottom: 1rem !important;
+}
+
+th{
+    font-weight: bold !important;
+    color: #fff !important;
+    background-color: #5499C7 !important;
+}
+td{
+    color: #555555 !important
+}

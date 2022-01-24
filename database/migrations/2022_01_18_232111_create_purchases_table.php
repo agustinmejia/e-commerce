@@ -18,7 +18,7 @@ class CreatePurchasesTable extends Migration
             $table->foreignId('user_id')->nullable()->constrained('users');
             $table->date('date')->nullable();
             $table->decimal('total', 10, 2)->nullable();
-            $table->decimal('discount', 10, 2)->nullable();
+            $table->decimal('discount', 10, 2)->nullable()->default(0);
             $table->text('observations')->nullable();
             $table->timestamps();
             $table->softDeletes();

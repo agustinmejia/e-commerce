@@ -121,6 +121,13 @@ if (\Illuminate\Support\Str::startsWith(Auth::user()->avatar, 'http://') || \Ill
 
 <script type="text/javascript" src="{{ voyager_asset('js/app.js') }}"></script>
 
+{{-- moment.js --}}
+<script src="{{ asset('vendor/momentjs/moment.js') }}"></script>
+<script src="{{ asset('vendor/momentjs/moment-with-locales.js') }}"></script>
+<script>
+    moment.locale('es');
+</script>
+
 <script>
     @if(Session::has('alerts'))
         let alerts = {!! json_encode(Session::get('alerts')) !!};

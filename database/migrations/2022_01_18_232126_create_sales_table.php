@@ -19,7 +19,7 @@ class CreateSalesTable extends Migration
             $table->foreignId('customer_id')->nullable()->constrained('customers');
             $table->date('date')->nullable();
             $table->decimal('total', 10, 2)->nullable();
-            $table->decimal('discount', 10, 2)->nullable();
+            $table->decimal('discount', 10, 2)->nullable()->default(0);
             $table->text('observations')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
