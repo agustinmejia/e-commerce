@@ -29,10 +29,13 @@ class Sale extends Model
     }
 
     public function details(){
-        return $this->hasMany(SalesDetail::class);
+        return $this->hasMany(SalesDetail::class)->withTrashed();
     }
 
     public function payments(){
-        return $this->hasMany(SalesPayment::class);
+        return $this->hasMany(SalesPayment::class)->withTrashed();
+    }
+    public function payment_schedules(){
+        return $this->hasMany(PaymentSchedule::class);
     }
 }

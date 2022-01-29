@@ -194,6 +194,10 @@
                             <input type="number" class="form-control" name="amount" min="1" step="0.1" placeholder="Monto" required>
                         </div>
                         <div class="form-group">
+                            <label for="next_payment">Fecha del siguiente pago</label>
+                            <input type="date" class="form-control" name="next_payment" min="{{ date('Y-m-d') }}" >
+                        </div>
+                        <div class="form-group">
                             <label for="observations">Observaciones</label>
                             <textarea class="form-control" name="observations" placeholder="Observaciones"></textarea>
                         </div>

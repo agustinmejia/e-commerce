@@ -24,7 +24,15 @@ Route::get('login', function () {
 })->name('login');
 
 Route::get('/', function () {
-    return redirect('admin');
+    return view('ecommerce.template_1.index');
+});
+
+Route::get('/list/products/filter', function () {
+    return view('ecommerce.template_1.list');
+});
+
+Route::get('/details/{slug}', function ($slug) {
+    return view('ecommerce.template_1.details', compact('slug'));
 });
 
 

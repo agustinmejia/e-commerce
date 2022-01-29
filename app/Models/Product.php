@@ -37,4 +37,8 @@ class Product extends Model
     public function sales_details(){
         return $this->hasMany(SalesDetail::class);
     }
+
+    public function rating(){
+        return $this->hasMany(ProductsRating::class);
+    }
 }

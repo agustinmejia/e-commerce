@@ -17,4 +17,8 @@ class ProductsCategory extends Model
         'description',
         'images'
     ];
+
+    public function products(){
+        return $this->hasMany(Product::class)->withTrashed();
+    }
 }

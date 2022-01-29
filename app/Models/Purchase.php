@@ -12,6 +12,7 @@ class Purchase extends Model
 
     protected $fillable = [
         'user_id',
+        'supplier_id',
         'date',
         'total',
         'discount',
@@ -22,7 +23,11 @@ class Purchase extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function supplier(){
+        return $this->belongsTo(Supplier::class, 'supplier_id');
+    }
+
     public function details(){
-        return $this->hasMany(PurchasesDetail::class);
+        return $this->hasMany(PurchasesDetail::class)->withTrashed();
     }
 }

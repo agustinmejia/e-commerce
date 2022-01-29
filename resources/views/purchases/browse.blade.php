@@ -109,6 +109,9 @@
                             <table id="table-details" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
+                                        <th colspan="5" class="text-center">Detalles de compra</th>
+                                    </tr>
+                                    <tr>
                                         <th>N&deg;</th>
                                         <th>Producto</th>
                                         <th>Cantidad</th>

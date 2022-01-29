@@ -7,6 +7,7 @@
                     <th>Registrado por</th>
                     <th>Fecha de venta</th>
                     <th>Total</th>
+                    <th>Proveedor</th>
                     <th>Observaciones</th>
                     <th>Creada el</th>
                     <th>Acciones</th>
@@ -19,6 +20,7 @@
                         <td>{{ $item->user->name }}</td>
                         <td>{{ strftime('%d/%b/%Y', strtotime($item->date)) }}</td>
                         <td>{{ number_format($item->total, 2, ',', '.') }}</td>
+                        <td>{{ $item->supplier ? $item->supplier->full_name : 'Ninguno' }}</td>
                         <td>{{ $item->observations }}</td>
                         <td>{{ strftime('%d/%b/%Y %H:%M', strtotime($item->created_at)) }}<br><small>{{ Carbon\Carbon::parse($item->created_at)->diffForHumans() }}</small></td>
                         <td>
@@ -37,7 +39,7 @@
                     </tr>
                 @empty
                     <tr class="odd">
-                        <td valign="top" colspan="7" class="text-center">No hay datos disponibles en la tabla</td>
+                        <td valign="top" colspan="8" class="text-center">No hay datos disponibles en la tabla</td>
                     </tr>
                 @endforelse
             </tbody>
@@ -70,6 +72,10 @@
             $('#label-observations').text(item.observations ? item.observations : '');
             item.details.map((detail, index) => {
                 let image = "{{ asset('images/default.jpg') }}";
+                if(detail.product.images){
+                    let images = JSON.parse(detail.product.images);
+                    image = "{{ asset('storage') }}/"+images[0].replace('.', '-cropped.');
+                }
                 $('#table-details tbody').append(`
                     <tr>
                         <td style="width: 50px">${index+1}</td>

@@ -23,6 +23,7 @@ class CreateProductsTable extends Migration
             $table->decimal('price', 10, 2)->nullable();
             $table->decimal('wholesale_price', 10, 2)->nullable();
             $table->integer('stock')->nullable()->default(0);
+            // $table->smallInteger('views')->nullable()->default(0);
             $table->text('images')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();

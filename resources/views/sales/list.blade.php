@@ -23,6 +23,20 @@
                             <b>{{ $item->customer ? $item->customer->full_name : 'Sin nombre' }}</b> <br>
                             <small>NIT/CI: {{ $item->customer ? $item->customer->dni ?? 'No definido' : 'No definido' }}</small> <br>  
                             <small>Cel: {{ $item->customer ? $item->customer->phone ?? 'No definido' : 'No definido' }}</small>
+                            @if ($item->status == 'pendiente')
+                                @if (count($item->payment_schedules))
+                                    <small>
+                                        <br>
+                                        @php
+                                            $date = $item->payment_schedules->last('date')->date;
+                                        @endphp
+                                        Próximo pago 
+                                        <b class="@if(date('Y-m-d', strtotime($date)) <= date('Y-m-d')) text-danger @endif">
+                                            {{ strftime('%d/%b/%Y', strtotime($date)) }}
+                                        </b>
+                                    </small>
+                                @endif
+                            @endif
                         </td>
                         <td>{{ $item->user->name }}</td>
                         <td>{{ strftime('%d/%b/%Y', strtotime($item->date)) }}</td>
@@ -110,6 +124,10 @@
 
             item.details.map((detail, index) => {
                 let image = "{{ asset('images/default.jpg') }}";
+                if(detail.product.images){
+                    let images = JSON.parse(detail.product.images);
+                    image = "{{ asset('storage') }}/"+images[0].replace('.', '-cropped.');
+                }
                 $('#table-details tbody').append(`
                     <tr>
                         <td style="width: 50px">${index+1}</td>

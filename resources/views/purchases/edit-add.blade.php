@@ -54,6 +54,15 @@
                                 <input type="date" name="date" value="{{ date('Y-m-d') }}" class="form-control">
                             </div>
                             <div class="form-group">
+                                <label for="date">Proveedor</label>
+                                <select name="supplier_id" class="form-control select2">
+                                    <option value="">Niguno</option>
+                                    @foreach (App\Models\Supplier::where('deleted_at', NULL)->get() as $item)
+                                    <option value="{{ $item->id }}">{{ $item->full_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <textarea name="observations" class="form-control" rows="3" placeholder="Observaciones"></textarea>
                             </div>
                             <h2 class="text-right"><small>Total: Bs.</small> <b id="label-total">0.00</b></h2>

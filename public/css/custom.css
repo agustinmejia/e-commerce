@@ -16,6 +16,11 @@
     margin-bottom: 1rem !important;
 }
 
+.mce-edit-area{
+    max-height: 250px !important;
+    overflow-y: hidden;
+}
+
 th{
     font-weight: bold !important;
     color: #fff !important;

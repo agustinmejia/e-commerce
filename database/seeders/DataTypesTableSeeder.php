@@ -161,7 +161,25 @@ class DataTypesTableSeeder extends Seeder
                 'server_side' => 0,
                 'details' => '{"order_column":null,"order_display_column":null,"order_direction":"asc","default_search_key":null,"scope":null}',
                 'created_at' => '2022-01-19 00:21:33',
-                'updated_at' => '2022-01-23 21:30:40',
+                'updated_at' => '2022-01-29 16:03:02',
+            ),
+            8 => 
+            array (
+                'id' => 9,
+                'name' => 'suppliers',
+                'slug' => 'suppliers',
+                'display_name_singular' => 'Proveedor',
+                'display_name_plural' => 'Proveedores',
+                'icon' => 'voyager-shop',
+                'model_name' => 'App\\Models\\Supplier',
+                'policy_name' => NULL,
+                'controller' => NULL,
+                'description' => NULL,
+                'generate_permissions' => 1,
+                'server_side' => 0,
+                'details' => '{"order_column":null,"order_display_column":null,"order_direction":"asc","default_search_key":null,"scope":null}',
+                'created_at' => '2022-01-27 22:13:36',
+                'updated_at' => '2022-01-27 22:14:05',
             ),
         ));
         

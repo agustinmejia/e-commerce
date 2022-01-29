@@ -29,7 +29,7 @@ class PurchasesController extends Controller
     {
         $paginate = request('paginate') ?? 10;
         $search = request('search');
-        $data = Purchase::with(['user', 'details.product.brand', 'details.product.category'])
+        $data = Purchase::with(['user', 'details.product.brand', 'details.product.category', 'supplier'])
                     ->orWhereHas('user', function($query) use ($search) {
                         $query->whereRaw($search ? 'name like "%'.$search.'%"' : 1);
                     })
@@ -61,6 +61,7 @@ class PurchasesController extends Controller
         try {
             $purchase = Purchase::create([
                 'user_id' => Auth::user()->id,
+                'supplier_id' => $request->supplier_id,
                 'date' => $request->date,
                 'observations'  => $request->observations
             ]);

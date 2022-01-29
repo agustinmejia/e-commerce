@@ -26,11 +26,11 @@
                 <div class="panel panel-bordered" style="border-left: 5px solid #52BE80">
                     <div class="panel-body" style="height: 100px;padding: 15px 20px">
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-9">
                                 <h5>Ventas del día</h5>
                                 <h2><small>Bs.</small>{{ number_format($sales_today->sum('total') - $sales_today->sum('discount'), 2, ',', '.') }}</h2>
                             </div>
-                            <div class="col-md-4 text-right">
+                            <div class="col-md-3 text-right">
                                 <i class="icon voyager-dollar" style="color: #52BE80"></i>
                             </div>
                         </div>
@@ -41,11 +41,11 @@
                 <div class="panel panel-bordered" style="border-left: 5px solid #3498DB">
                     <div class="panel-body" style="height: 100px;padding: 15px 20px">
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-9">
                                 <h5>Clientes con deuda</h5>
                                 <h2>{{ $sales->where('status', 'pendiente')->count() }}</h2>
                             </div>
-                            <div class="col-md-4 text-right">
+                            <div class="col-md-3 text-right">
                                 <i class="icon voyager-people" style="color: #3498DB"></i>
                             </div>
                         </div>
@@ -56,11 +56,11 @@
                 <div class="panel panel-bordered" style="border-left: 5px solid #E74C3C">
                     <div class="panel-body" style="height: 100px;padding: 15px 20px">
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-9">
                                 <h5>Deuda total</h5>
                                 <h2><small>Bs.</small>{{ number_format($total_debt, 2, ',', '.') }}</h2>
                             </div>
-                            <div class="col-md-4 text-right">
+                            <div class="col-md-3 text-right">
                                 <i class="icon voyager-book" style="color: #E74C3C"></i>
                             </div>
                         </div>
@@ -71,11 +71,11 @@
                 <div class="panel panel-bordered" style="border-left: 5px solid #E67E22">
                     <div class="panel-body" style="height: 100px;padding: 15px 20px">
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-9">
                                 <h5>Producto en escasez</h5>
                                 <h2>{{ $products->where('stock', '<', 10)->count() }}</h2>
                             </div>
-                            <div class="col-md-4 text-right">
+                            <div class="col-md-3 text-right">
                                 <i class="icon voyager-archive" style="color: #E67E22"></i>
                             </div>
                         </div>
@@ -124,7 +124,7 @@
 @section('css')
     <style>
         .icon{
-            font-size: 50px
+            font-size: 35px
         }
     </style>
 @endsection

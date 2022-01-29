@@ -1,9 +1,5 @@
 @extends('voyager::master')
 
-@section('css')
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-@stop
-
 @section('page_title', 'Añadir Venta')
 
 @section('page_header')
@@ -20,7 +16,7 @@
             <div class="row">
                 <div class="col-md-8">
                     <div class="panel panel-bordered">
-                        <div class="panel-body" style="min-height: 475px">
+                        <div class="panel-body" style="min-height: 465px">
                             <div class="form-group">
                                 <label for="product_id">Buscar producto</label>
                                 <select class="form-control" id="select-product_id"></select>
@@ -49,27 +45,35 @@
                 <div class="col-md-4">
                     <div class="panel panel-bordered">
                         <div class="panel-body">
-                            <div class="form-group">
-                                <label for="date">Fecha de venta</label>
-                                <input type="date" name="date" value="{{ date('Y-m-d') }}" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="customer_id">Cliente</label>
-                                <select name="customer_id" id="select-customer_id" class="form-control"></select>
-                            </div>
-                            <div class="form-group">
-                                {{-- <label for="dni">NIT/CI</label> --}}
-                                <input type="text" name="dni" id="input-dni" value="" class="form-control" placeholder="NIT/CI">
-                            </div>
-                            <div class="form-group">
-                                <input type="number" name="amount" id="input-amount" min="0" step="0.1" class="form-control" placeholder="Monto recibo Bs.">
-                            </div>
-                            <div class="form-group">
-                                <textarea name="observations" class="form-control" rows="3" placeholder="Observaciones"></textarea>
-                            </div>
-                            <h2 class="text-right"><small>Total: Bs.</small> <b id="label-total">0.00</b></h2>
-                            <div class="form-group text-right">
-                                <button type="submit" class="btn btn-primary btn-block">Vender</button>
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label for="customer_id">Cliente</label>
+                                    <select name="customer_id" id="select-customer_id" class="form-control"></select>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    {{-- <label for="dni">NIT/CI</label> --}}
+                                    <input type="text" name="dni" id="input-dni" value="" class="form-control" placeholder="NIT/CI">
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <input type="number" name="amount" id="input-amount" min="0" step="0.1" class="form-control" placeholder="Monto recibo Bs.">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="date">Fecha de venta</label>
+                                    <input type="date" name="date" value="{{ date('Y-m-d') }}" class="form-control" required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="next_payment">Próximo pago</label>
+                                    <input type="date" name="next_payment" min="{{ date('Y-m-d') }}"  class="form-control">
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <textarea name="observations" class="form-control" rows="3" placeholder="Observaciones"></textarea>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <h2 class="text-right"><small>Total: Bs.</small> <b id="label-total">0.00</b></h2>
+                                </div>
+                                <div class="form-group col-md-12 text-right">
+                                    <button type="submit" class="btn btn-primary btn-block">Vender</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -78,6 +82,14 @@
         </form>
     </div>
 @stop
+
+@section('css')
+    <style>
+        .form-group{
+            margin-bottom: 10px !important;
+        }
+    </style>
+@endsection
 
 @section('javascript')
     <script>
@@ -263,7 +275,7 @@
             // Mostrar las opciones encontradas
             return $(`  <div>
                             <b style="font-size: 16px">${option.full_name}</b><br>
-                            <small>NIT/CI: ${option.dni ? option.dni : 'No definido'} - Cel: ${option.phone ? option.phone : 'No definido'} ${true ? '' : '<label class="label label-danger">Agotado</label>'}</small>
+                            <small>NIT/CI: ${option.dni ? option.dni : 'No definido'} - Cel: ${option.phone ? option.phone : 'No definido'} ${option.sales.length > 0 ? '<br><label class="label label-danger">Deuda pendiente</label>' : ''}</small>
                         </div>`);
         }
     </script>

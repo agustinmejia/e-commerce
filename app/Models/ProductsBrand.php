@@ -16,4 +16,8 @@ class ProductsBrand extends Model
         'slug',
         'images'
     ];
+
+    public function products(){
+        return $this->hasMany(Product::class)->withTrashed();
+    }
 }

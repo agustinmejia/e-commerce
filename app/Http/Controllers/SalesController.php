@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 // Models
 use App\Models\Sale;
 use App\Models\SalesDetail;
 use App\Models\Product;
+use App\Models\Customer;
 use App\Models\SalesPayment;
+use App\Models\PaymentSchedule;
 
 class SalesController extends Controller
 {
@@ -29,7 +32,9 @@ class SalesController extends Controller
         $paginate = request('paginate') ?? 10;
         $page = request('page') ?? 1;
         $search = request('search');
-        $data = Sale::with(['user', 'customer', 'details.product.brand', 'details.product.category', 'payments.user'])
+        $data = Sale::with(['user', 'customer', 'details.product.brand', 'details.product.category', 'payments.user', 'payment_schedules' => function($query){
+                        $query->where('status', '=', 'pendiente');
+                    }])
                     ->orWhereHas('customer', function($query) use ($search) {
                         $query->whereRaw($search ? 'full_name like "%'.$search.'%"' : 1);
                     })
@@ -60,6 +65,10 @@ class SalesController extends Controller
      */
     public function store(Request $request)
     {
+        if(!$request->product_id){
+            return redirect()->route('sales.create')->with(['message' => 'Detalle de ventas vacío.', 'alert-type' => 'warning']);
+        }
+
         // dd($request->all());
         DB::beginTransaction();
         try {
@@ -69,6 +78,8 @@ class SalesController extends Controller
                 'customer_id' => $request->customer_id ?? 1,
                 'observations'  => $request->observations
             ]);
+
+            Customer::where('id', $request->customer_id)->update(['dni' => $request->dni]);
 
             $total = 0;
             for ($i=0; $i < count($request->product_id); $i++) { 
@@ -97,6 +108,17 @@ class SalesController extends Controller
                     'user_id' => Auth::user()->id,
                     'amount' => $request->amount,
                     'observations' => 'Pago al momento de la venta'
+                ]);
+            }
+
+            // En caso de definir fecha de próximo pago
+            if($request->next_payment){
+                PaymentSchedule::create([
+                    'sale_id' => $sale->id,
+                    'user_id' => Auth::user()->id,
+                    'date' => $request->next_payment,
+                    'observations' => 'Fecha definida al momento de la venta',
+                    'status' => 'Pendiente'
                 ]);
             }
 
@@ -189,8 +211,7 @@ class SalesController extends Controller
             SalesPayment::create([
                 'sale_id' => $request->sale_id,
                 'user_id' => Auth::user()->id,
-                'amount' => $request->amount,
-                'observations' => $request->observations
+                'amount' => $request->amount
             ]);
 
             $sale = Sale::find($request->sale_id);
@@ -198,6 +219,22 @@ class SalesController extends Controller
             if($payments >= $sale->total){
                 $sale->status = 'pagada';
                 $sale->update();
+            }
+
+            $last_payment = PaymentSchedule::where('sale_id', $request->sale_id)->orderBy('id', 'DESC')->first();
+            $last_payment->updated_at = Carbon::now();
+            $last_payment->status = 'pagada';
+            $last_payment->update();
+
+            // En caso de definir fecha de próximo pago
+            if($request->next_payment){
+                PaymentSchedule::create([
+                    'sale_id' => $sale->id,
+                    'user_id' => Auth::user()->id,
+                    'date' => $request->next_payment,
+                    'observations' => $request->observations,
+                    'status' => 'Pendiente'
+                ]);
             }
 
             DB::commit();
