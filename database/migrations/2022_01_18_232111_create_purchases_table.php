@@ -16,7 +16,7 @@ class CreatePurchasesTable extends Migration
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained('users');
-            // $table->foreignId('supplier_id')->nullable()->constrained('suppliers');
+            $table->foreignId('supplier_id')->nullable()->constrained('suppliers');
             $table->date('date')->nullable();
             $table->decimal('total', 10, 2)->nullable();
             $table->decimal('discount', 10, 2)->nullable()->default(0);

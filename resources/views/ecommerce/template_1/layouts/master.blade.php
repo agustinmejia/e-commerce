@@ -18,6 +18,22 @@
             <link rel="shortcut icon" href="{{ Voyager::image($admin_favicon) }}" type="image/png">
         @endif
 
+		{{-- Custom CSS --}}
+		<style>
+			.section-pagetop{
+				padding-top: 120px !important;
+			}
+
+			@media (max-width: 768px) {
+				.div-contact-whatsapp{
+					display: none;
+				}
+				.section-pagetop{
+					padding-top: 150px !important;
+				}
+			}
+		</style>
+
 		<!-- jQuery -->
 		<script src="{{ asset('ecommerce/js/jquery-2.0.0.min.js') }}" type="text/javascript"></script>
 
@@ -54,7 +70,7 @@
 		<script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v12.0&appId=465165315241707&autoLogAppEvents=1" nonce="AS1KRfwD"></script>
 		{{-- ===== end Facebook Sdk ===== --}}
 
-		<header class="section-header">
+		<header class="section-header fixed-top bg-white">
 			{{-- <nav class="navbar navbar-top navbar-expand-lg navbar-dark bg-secondary">
 				<div class="container">
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -112,10 +128,10 @@
                                 </div>
                             </form> <!-- search-wrap .end// -->
 						</div> <!-- col.// -->
-						<div class="col-lg-3 col-sm-12">
+						<div class="col-lg-3 col-sm-12 div-contact-whatsapp">
 								<a href="#" class="widget-header float-md-right">
 									<div class="icontext">
-										<div class="icon-wrap"><i class="flip-h fa-lg fa fa-phone"></i></div>
+										<div class="icon-wrap"><i class="flip-h fa-lg fab fa-whatsapp"></i></div>
 										<div class="text-wrap">
 											<small>WhatsApp</small>
 											<div>+591 75199157</div>

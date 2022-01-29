@@ -15,6 +15,7 @@ class UpdateProductsTable extends Migration
     {
         Schema::table('products', function(Blueprint $table){
             $table->smallInteger('views')->nullable()->default(0)->after('images');
+            $table->text('long_description')->nullable()->after('images');
         });
     }
 
@@ -26,7 +27,7 @@ class UpdateProductsTable extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn(['views']);
+            $table->dropColumn(['views', 'long_description']);
         });
     }
 }

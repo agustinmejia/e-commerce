@@ -47,7 +47,7 @@
                                     <div class="label-rating"> &nbsp; {{ $item->rating->count() }} reviews</div>
                                     <div class="label-rating">{{ $item->sales_details->count() }} Ventas </div>
                                 </div>
-                                {!! $item->description !!}
+                                {!! $item->long_description !!}
                             
                         </article>
                         <aside class="col-sm-3 border-left">

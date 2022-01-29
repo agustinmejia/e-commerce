@@ -936,7 +936,7 @@ class DataRowsTableSeeder extends Seeder
                 'id' => 58,
                 'data_type_id' => 8,
                 'field' => 'description',
-                'type' => 'rich_text_box',
+                'type' => 'text_area',
                 'display_name' => 'Descripción',
                 'required' => 0,
                 'browse' => 0,
@@ -944,8 +944,8 @@ class DataRowsTableSeeder extends Seeder
                 'edit' => 1,
                 'add' => 1,
                 'delete' => 1,
-                'details' => '{"tinymceOptions":{"height":200}}',
-                'order' => 13,
+                'details' => '{"validation":{"rule":"required"}}',
+                'order' => 14,
             ),
             58 => 
             array (
@@ -1009,7 +1009,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 1,
                 'delete' => 1,
                 'details' => '{"resize":{"width":"1000","height":null},"quality":"70%","upsize":true,"thumbnails":[{"name":"medium","scale":"50%"},{"name":"small","scale":"25%"},{"name":"cropped","crop":{"width":"300","height":"250"}},{"name":"social","crop":{"width":"600","height":"315"}}]}',
-                'order' => 12,
+                'order' => 13,
             ),
             62 => 
             array (
@@ -1041,7 +1041,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 0,
                 'delete' => 0,
                 'details' => '{}',
-                'order' => 14,
+                'order' => 16,
             ),
             64 => 
             array (
@@ -1057,7 +1057,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 0,
                 'delete' => 0,
                 'details' => '{}',
-                'order' => 15,
+                'order' => 17,
             ),
             65 => 
             array (
@@ -1073,7 +1073,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 0,
                 'delete' => 0,
                 'details' => '{}',
-                'order' => 16,
+                'order' => 18,
             ),
             66 => 
             array (
@@ -1257,15 +1257,31 @@ class DataRowsTableSeeder extends Seeder
                 'data_type_id' => 8,
                 'field' => 'views',
                 'type' => 'text',
-                'display_name' => 'Views',
+                'display_name' => 'Visualizaciones',
                 'required' => 0,
-                'browse' => 1,
+                'browse' => 0,
+                'read' => 1,
+                'edit' => 0,
+                'add' => 0,
+                'delete' => 0,
+                'details' => '{}',
+                'order' => 12,
+            ),
+            78 => 
+            array (
+                'id' => 79,
+                'data_type_id' => 8,
+                'field' => 'long_description',
+                'type' => 'rich_text_box',
+                'display_name' => 'Descripción completa',
+                'required' => 0,
+                'browse' => 0,
                 'read' => 1,
                 'edit' => 1,
                 'add' => 1,
                 'delete' => 1,
                 'details' => '{}',
-                'order' => 11,
+                'order' => 15,
             ),
         ));
         

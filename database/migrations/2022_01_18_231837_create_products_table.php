@@ -20,10 +20,11 @@ class CreateProductsTable extends Migration
             $table->string('name')->nullable();
             $table->string('slug')->unique();
             $table->text('description')->nullable();
+            $table->text('long_description')->nullable();
             $table->decimal('price', 10, 2)->nullable();
             $table->decimal('wholesale_price', 10, 2)->nullable();
             $table->integer('stock')->nullable()->default(0);
-            // $table->smallInteger('views')->nullable()->default(0);
+            $table->smallInteger('views')->nullable()->default(0);
             $table->text('images')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();

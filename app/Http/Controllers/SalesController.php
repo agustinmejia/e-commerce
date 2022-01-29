@@ -222,9 +222,11 @@ class SalesController extends Controller
             }
 
             $last_payment = PaymentSchedule::where('sale_id', $request->sale_id)->orderBy('id', 'DESC')->first();
-            $last_payment->updated_at = Carbon::now();
-            $last_payment->status = 'pagada';
-            $last_payment->update();
+            if($last_payment){
+                $last_payment->updated_at = Carbon::now();
+                $last_payment->status = 'pagada';
+                $last_payment->update();
+            }
 
             // En caso de definir fecha de próximo pago
             if($request->next_payment){
@@ -242,7 +244,7 @@ class SalesController extends Controller
             return redirect()->route('sales.index')->with(['message' => 'Pago registrado correctamente.', 'alert-type' => 'success', 'page' => $request->page]);
         } catch (\Throwable $th) {
             DB::rollback();
-            // throw $th;
+            // dd($th);
             return redirect()->route('sales.index')->with(['message' => 'Ocurrió un error.', 'alert-type' => 'error', 'page' => $request->page]);
         }
     }

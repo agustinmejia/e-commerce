@@ -6,9 +6,11 @@
     $product = \App\Models\Product::with(['rating', 'sales_details'])->where('slug', $slug)->first();
     $image = 'images/default.jpg';
     $image_medium = 'images/default.jpg';
+    $image_social = 'images/default.jpg';
     if($product->images){
         $image = 'storage/'.json_decode($product->images)[0];
-        $image_medium = 'storage/'.str_replace('.', '-social.', json_decode($product->images)[0]);
+        $image_medium = 'storage/'.str_replace('.', '-medium.', json_decode($product->images)[0]);
+        $image_social = 'storage/'.str_replace('.', '-social.', json_decode($product->images)[0]);
     }
 @endphp
 
@@ -17,7 +19,7 @@
 	<meta property="og:type"          content="E-Commerce" />
 	<meta property="og:title"         content="{{ $product->name }}" />
 	<meta property="og:description"   content="{{ $product->description }}" />
-	<meta property="og:image"         content="{{ asset($image_medium) }}" />
+	<meta property="og:image"         content="{{ asset($image_social) }}" />
 	<meta name="keywords" content="ecommerce, e-commerce, ideacreativa, idea, creativa, ventas, {{ $product->name }}">
 @endsection
 
@@ -47,7 +49,7 @@
                             <aside class="col-sm-5 border-right">
                                 <article class="gallery-wrap"> 
                                 <div class="img-big-wrap">
-                                    <div> <a href="{{ asset($image) }}" data-fancybox=""><img src="{{ asset($image_medium) }}"></a></div>
+                                    <div> <a href="{{ asset($image) }}" data-fancybox=""><img src="{{ asset($image_medium) }}" style="width: 100%; height: 100%"></a></div>
                                 </div>
                                 <div class="img-small-wrap">
                                     @if($product->images)
@@ -72,8 +74,8 @@
                                         </var> 
                                         {{-- <span>/per kg</span> --}}
                                     </div>
-                                    <dt>Description</dt>
-                                    {!! $product->description !!}
+                                    <dt>Descripción</dt>
+                                    {!! $product->long_description !!}
                                     <br>
                                     <div class="rating-wrap">
                                         <ul class="rating-stars">
@@ -164,6 +166,13 @@
 
 @section('css')
     <link href="{{ asset('ecommerce/plugins/fancybox/fancybox.min.css') }}" type="text/css" rel="stylesheet">
+    <style>
+        @media (max-width: 768px) {
+            .btn-sm{
+                margin: 15px !important;
+            }
+        }
+    </style>
 @endsection
 
 @section('scripts')

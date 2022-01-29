@@ -17,10 +17,12 @@ class Product extends Model
         'name',
         'slug',
         'description',
+        'long_description',
         'price',
         'wholesale_price',
         'stock',
         'images',
+        'views',
         'status'
     ];
 
