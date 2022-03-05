@@ -7,6 +7,7 @@ use App\Http\Controllers\PurchasesController;
 use App\Http\Controllers\ProductsControllers;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\CustomersController;
+use App\Http\Controllers\ReportsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,11 +49,16 @@ Route::group(['prefix' => 'admin'], function () {
 
     // Customers
     Route::get('customers/list/ajax', [CustomersController::class, 'list']);
+    Route::post('customers/store', [CustomersController::class, 'store']);
 
     // Sales
     Route::resource('sales', SalesController::class);
     Route::get('sales/list/ajax', [SalesController::class, 'list']);
     Route::post('sales/payments/store', [SalesController::class, 'payments_store'])->name('sales.payments.store');
+
+    // Reportes
+    Route::get('reports/sales', [ReportsController::class, 'sales_index'])->name('reports.sales.index');
+    Route::post('reports/sales/list', [ReportsController::class, 'sales_list'])->name('reports.sales.list');
 });
 
 // Clear cache

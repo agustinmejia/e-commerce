@@ -1,0 +1,4 @@
+Mejoras en la interface de ecommerce
+
+Instrucciones
+- Ejecutar los seeders: SettingsTableSeeder, UpdateBreadSeeder, UpdatePermissionsSeeder

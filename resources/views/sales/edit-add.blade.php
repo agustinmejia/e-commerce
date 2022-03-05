@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="col-md-8">
                     <div class="panel panel-bordered">
-                        <div class="panel-body" style="min-height: 465px">
+                        <div class="panel-body" style="min-height: 470px">
                             <div class="form-group">
                                 <label for="product_id">Buscar producto</label>
                                 <select class="form-control" id="select-product_id"></select>
@@ -48,7 +48,14 @@
                             <div class="row">
                                 <div class="form-group col-md-12">
                                     <label for="customer_id">Cliente</label>
-                                    <select name="customer_id" id="select-customer_id" class="form-control"></select>
+                                    <div class="input-group">
+                                        <select name="customer_id" id="select-customer_id" class="form-control"></select>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary" title="Nuevo cliente" data-target="#modal-create-customer" data-toggle="modal" style="margin: 0px" type="button">
+                                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                            </button>
+                                        </span>
+                                    </div>
                                 </div>
                                 <div class="form-group col-md-12">
                                     {{-- <label for="dni">NIT/CI</label> --}}
@@ -81,6 +88,47 @@
             </div>
         </form>
     </div>
+
+    {{-- Modal crear cliente --}}
+    <form action="{{ url('admin/customers/store') }}" id="form-create-customer" method="POST">
+        <div class="modal fade" tabindex="-1" id="modal-create-customer" role="dialog">
+            <div class="modal-dialog modal-primary">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"><i class="voyager-trash"></i> Desea eliminar el siguiente registro?</h4>
+                    </div>
+                    <div class="modal-body">
+                        @csrf
+                        <input type="hidden" name="type" value="normal">
+                        <input type="hidden" name="status" value="activo">
+                        <div class="form-group">
+                            <label for="full_name">Nombre completo</label>
+                            <input type="text" name="full_name" class="form-control" placeholder="Juan Perez" required>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="full_name">NIT/CI</label>
+                                <input type="text" name="dni" class="form-control" placeholder="123456789">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="full_name">Celular</label>
+                                <input type="text" name="phone" class="form-control" placeholder="75199157">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Dirección</label>
+                            <textarea name="address" class="form-control" rows="3" placeholder="C/ 18 de nov. Nro 123 zona central"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        <input type="submit" class="btn btn-primary btn-save-customer" value="Guardar">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 @stop
 
 @section('css')
@@ -203,6 +251,25 @@
                 if(customerSelected){
                     $('#input-dni').val(customerSelected.dni ? customerSelected.dni : '');
                 }
+            });
+
+            $('#form-create-customer').submit(function(e){
+                e.preventDefault();
+                $('.btn-save-customer').attr('disabled', true);
+                $('.btn-save-customer').val('Guardando...');
+                $.post($(this).attr('action'), $(this).serialize(), function(data){
+                    if(data.customer.id){
+                        toastr.success('Usuario creado', 'Éxito');
+                        $(this).trigger('reset');
+                    }else{
+                        toastr.error(data.error, 'Error');
+                    }
+                })
+                .always(function(){
+                    $('.btn-save-customer').attr('disabled', false);
+                    $('.btn-save-customer').text('Guardar');
+                    $('#modal-create-customer').modal('hide');
+                });
             });
         });
 

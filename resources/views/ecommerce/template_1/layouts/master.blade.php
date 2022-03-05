@@ -6,12 +6,12 @@
 		<meta http-equiv="cache-control" content="max-age=604800" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <title>@yield('page_title', setting('admin.title') . " - " . setting('admin.description'))</title>
+        <title>@yield('page_title', setting('site.title') . " - " . setting('site.description'))</title>
 
 		@yield('seo')
 
         <!-- Favicon -->
-        <?php $admin_favicon = Voyager::setting('admin.icon_image', ''); ?>
+        <?php $admin_favicon = Voyager::setting('site.logo', ''); ?>
         @if($admin_favicon == '')
             <link rel="shortcut icon" href="{{ asset('images/icon.png') }}" type="image/png">
         @else
@@ -23,13 +23,41 @@
 			.section-pagetop{
 				padding-top: 120px !important;
 			}
+			.select2-selection, .select2-selection__rendered, .select2-selection__arrow{
+				height: 40px !important;
+			}
+			.select2-selection__rendered{
+				line-height: 35px !important;
+			}
+			.select2-selection__placeholder{
+				font-size: 18px !important;
+			}
 
-			@media (max-width: 768px) {
-				.div-contact-whatsapp{
+			.shopping-cart-mobile{
+				display: none;
+				z-index: 10;
+			}
+
+			.shopping-cart-mobile .icon-wrap{
+				background-color: white;
+				border-radius: 30px
+			}
+
+			@media (max-width: 425px) {
+				.div-header-right{
 					display: none;
 				}
+				.shopping-cart-mobile{
+					display: block;
+				}
+			}
+
+			@media (max-width: 768px) {
 				.section-pagetop{
 					padding-top: 150px !important;
+				}
+				.div-contact-whatsapp{
+					display: none !important;
 				}
 			}
 		</style>
@@ -51,16 +79,10 @@
 		<!-- custom javascript -->
 		<script src="{{ asset('ecommerce/js/script.js') }}" type="text/javascript"></script>
 
-		<script type="text/javascript">
-		/// some script
-
-		// jquery ready start
-		$(document).ready(function() {
-			// jQuery code
-
-		}); 
-		// jquery end
-		</script>
+		<!-- plugin: owl carousel  -->
+		<link href="{{ asset('ecommerce/plugins/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+		<link href="{{ asset('ecommerce/plugins/owlcarousel/assets/owl.theme.default.css') }}" rel="stylesheet">
+		<script src="{{ asset('ecommerce/plugins/owlcarousel/owl.carousel.min.js') }}"></script>
 
 	</head>
 	<body>
@@ -97,67 +119,79 @@
 			<section class="header-main shadow">
 				<div class="container">
 					<div class="row align-items-center">
-						<div class="col-lg-3 col-sm-4">
-						<div class="brand-wrap">
-                            <a href="{{ url('') }}">
-								<?php $admin_favicon = Voyager::setting('admin.icon_image', ''); ?>
-								@if($admin_favicon == '')
-									<img class="logo" src="{{ asset('images/icon.png') }}" alt="{{ setting('admin.title') }}" />
-								@else
-									<img class="logo" src="{{ Voyager::image($admin_favicon) }}" alt="{{ setting('admin.title') }}" />
-								@endif
-								<h2 class="logo-text text-dark">{{ setting('admin.title') }}</h2>
-							</a>
-						</div> <!-- brand-wrap.// -->
+						<div class="col-lg-3 col-sm-3">
+							<div class="brand-wrap">
+								<a href="{{ url('') }}">
+									<?php $admin_favicon = Voyager::setting('site.logo', ''); ?>
+									@if($admin_favicon == '')
+										<img class="logo" src="{{ asset('images/icon.png') }}" alt="{{ setting('site.title') }}" />
+									@else
+										<img class="logo" src="{{ Voyager::image($admin_favicon) }}" alt="{{ setting('site.title') }}" />
+									@endif
+									<h2 class="logo-text text-dark">{{ setting('site.title') }}</h2>
+								</a>
+							</div>
 						</div>
-						<div class="col-lg-6 col-sm-8">
+						<div class="col-lg-6 col-sm-6">
                             <form action="#" class="search-wrap">
                                 <div class="input-group w-100">
-                                    <input type="text" class="form-control" style="width:55%;" placeholder="Buscar...">
-                                    <select class="custom-select"  name="category_name">
-                                            <option value="">Todos</option>
-                                            <option value="codex">Más vendidos</option>
-                                            <option value="comments">Más puntuados</option>
-                                            <option value="content">Nuevos</option>
-                                    </select>
-                                    <div class="input-group-append">
-                                    <button class="btn btn-primary" type="submit">
-                                        <i class="fa fa-search"></i>
-                                    </button>
-                                    </div>
+                                    <select class="custom-select" id="select-main-search" name="category_name"></select>
                                 </div>
-                            </form> <!-- search-wrap .end// -->
-						</div> <!-- col.// -->
-						<div class="col-lg-3 col-sm-12 div-contact-whatsapp">
-								<a href="#" class="widget-header float-md-right">
-									<div class="icontext">
-										<div class="icon-wrap"><i class="flip-h fa-lg fab fa-whatsapp"></i></div>
-										<div class="text-wrap">
-											<small>WhatsApp</small>
-											<div>+591 75199157</div>
-										</div>
+                            </form>
+						</div>
+						<div class="col-lg-3 col-sm-3 text-right div-header-right">
+							<a href="tel:{{ setting('social.whatsapp') ?? '+591 75199157' }}" class="widget-header text-left div-contact-whatsapp">
+								<div class="icontext">
+									<div class="icon-wrap"><i class="flip-h fa-lg fab fa-whatsapp"></i></div>
+									<div class="text-wrap">
+										<small>WhatsApp</small>
+										<div>{{ setting('social.whatsapp') ?? '+591 75199157' }}</div>
 									</div>
-								</a>
-						</div> <!-- col.// -->
-					</div> <!-- row.// -->
-				</div> <!-- container.// -->
-			</section> <!-- header-main .// -->
-		</header> <!-- section-header.// -->
+								</div>
+							</a>
+							<a href="#" class="widget-header">
+								<div class="icontext">
+									<div class="icon-wrap icon-sm round border"><i class="fa fa-shopping-cart"></i></div>
+								</div>
+								<span class="badge badge-pill badge-danger notify count-shopping-cart">0</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</section>
+		</header>
 
 		@yield('content')
 
+		<div class="shopping-cart-mobile" style="position: fixed; bottom: 20px; right: 20px">
+			<a href="#" class="widget-header">
+				<div class="icontext">
+					<div class="icon-wrap icon-sm round border" style="width: 60px; height: 60px">
+						<i class="fa fa-shopping-cart" style="font-size: 30px; padding-top: 15px"></i>
+					</div>
+				</div>
+				<span class="badge badge-pill badge-danger notify count-shopping-cart" style="font-size: 13px">0</span>
+			</a>
+		</div>
 
 		<!-- ========================= FOOTER ========================= -->
 		<footer class="section-footer bg-secondary">
 			<div class="container">
 				<section class="footer-top padding-top">
 					<div class="row">
-						<aside class="col-sm-12 col-md-4 white">
-							<h4 class="title">{{ setting('admin.title') }}</h4>
-							<p>{{ setting('admin.description') }}</p>
+						<aside class="col-sm-12 col-md-12 col-lg-3 white">
+							<h4 class="title">{{ setting('site.title') }}</h4>
+							<p>{{ setting('site.description') }}</p>
+
+							<div class="btn-group white mt-3 mb-5">
+								<a class="btn btn-facebook" title="Facebook" target="_blank" href="{{ setting('social.facebook') ?? '#' }}"><i class="fab fa-facebook-f fa-fw"></i></a>
+								<a class="btn btn-instagram" title="Instagram" target="_blank" href="{{ setting('social.instagram') ?? '#' }}"><i class="fab fa-instagram fa-fw"></i></a>
+								<a class="btn btn-youtube" title="Youtube" target="_blank" href="{{ setting('social.youtube') ?? '#' }}"><i class="fab fa-youtube fa-fw"></i></a>
+								<a class="btn btn-twitter" title="Twitter" target="_blank" href="{{ setting('social.twitter') ?? '#' }}"><i class="fab fa-twitter fa-fw"></i></a>
+							</div>
 						</aside>
-						<aside class="col-xs-6 col-sm-6 col-md-2 white">
-							<h5 class="title">Customer Services</h5>
+						<aside class="col-xs-6 col-sm-6 col-md-4 col-lg-3 white">
+							<h5 class="title">Nuestros servicios</h5>
 							<ul class="list-unstyled">
 								<li> <a href="#">Help center</a></li>
 								<li> <a href="#">Money refund</a></li>
@@ -165,8 +199,8 @@
 								<li> <a href="#">Open dispute</a></li>
 							</ul>
 						</aside>
-						<aside class="col-xs-6 col-sm-6  col-md-2 white">
-							<h5 class="title">My Account</h5>
+						<aside class="col-xs-6 col-sm-6  col-md-4 col-lg-3 white">
+							<h5 class="title">Mi cuenta</h5>
 							<ul class="list-unstyled">
 								<li> <a href="#"> User Login </a></li>
 								<li> <a href="#"> User register </a></li>
@@ -175,30 +209,14 @@
 								<li> <a href="#"> My Wishlist </a></li>
 							</ul>
 						</aside>
-						<aside class="col-xs-6 col-sm-6  col-md-2 white">
-							<h5 class="title">About</h5>
-							<ul class="list-unstyled">
-								<li> <a href="#"> Our history </a></li>
-								<li> <a href="#"> How to buy </a></li>
-								<li> <a href="#"> Delivery and payment </a></li>
-								<li> <a href="#"> Advertice </a></li>
-								<li> <a href="#"> Partnership </a></li>
-							</ul>
-						</aside>
-						<aside class="col-xs-6 col-sm-6 col-md-2">
+						<aside class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
 							<article class="white">
-								<h5 class="title">Contacts</h5>
+								<h5 class="title">Contacto</h5>
 								<p>
-									<strong>Celular: </strong> +591 75199157 <br> 
-									<strong>Email:</strong> user@example.com
+									<strong>Celular: </strong> {{ setting('site.phones') ?? '+591 75199157' }} <br> 
+									<strong>Email: <br> </strong> {{ setting('site.email') ?? 'agustinmejiamuiba@gmail.com' }} <br>
+									<strong>Dirección: <br> </strong> {{ setting('site.address') ?? 'Calle Ipurupuru Nro 75' }} <br> 
 								</p>
-
-								<div class="btn-group white">
-									<a class="btn btn-facebook" title="Facebook" target="_blank" href="#"><i class="fab fa-facebook-f  fa-fw"></i></a>
-									<a class="btn btn-instagram" title="Instagram" target="_blank" href="#"><i class="fab fa-instagram  fa-fw"></i></a>
-									<a class="btn btn-youtube" title="Youtube" target="_blank" href="#"><i class="fab fa-youtube  fa-fw"></i></a>
-									<a class="btn btn-twitter" title="Twitter" target="_blank" href="#"><i class="fab fa-twitter  fa-fw"></i></a>
-								</div>
 							</article>
 						</aside>
 					</div> <!-- row.// -->
@@ -209,7 +227,7 @@
 						{{-- <p class="text-white-50"> Made with <3 <br>  by Vosidiy M.</p> --}}
 					</div>
 					<div class="col-sm-6 text-right">
-						<p class="text-sm-right text-white-50">Copyright &copy {{ date('Y') }} <br> Desarrolado por <a href="https://ideacreativa.ml" class="text-white" target="_blank">IdeaCreativa</a></p>
+						<p class="text-sm-right text-white-50">Copyright &copy {{ date('Y') }} <br> Desarrollado por <a href="https://ideacreativa.ml" class="text-white" target="_blank">IdeaCreativa</a></p>
 					</div>
 				</section> <!-- //footer-top -->
 			</div><!-- //container -->
@@ -219,5 +237,82 @@
 		@yield('css')
 		
 		@yield('scripts')
+
+		{{-- Select2 --}}
+		<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+		<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+		<script type="text/javascript">
+			$(document).ready(function(){
+				var productSelected;
+				$('#select-main-search').select2({
+					style: "height: 60px !important;",
+					placeholder: '<i class="fa fa-search"></i> &nbsp;&nbsp; Buscar producto...',
+					escapeMarkup : function(markup) {
+						return markup;
+					},
+					language: {
+						inputTooShort: function (data) {
+							return `Por favor ingrese ${data.minimum - data.input.length} o más caracteres`;
+						},
+						noResults: function () {
+							return `<i class="far fa-frown"></i> No hay resultados encontrados`;
+						}
+					},
+					quietMillis: 250,
+					minimumInputLength: 4,
+					ajax: {
+						url: "{{ url('admin/products/list/ajax') }}",
+						processResults: function (data) {
+							let results = [];
+							console.log(data);
+							data.forEach(function(item){
+								results.push({
+									...item,
+									id: item.slug,
+								});
+							});
+							return {
+								results
+							};
+						},
+						cache: true
+					},
+					templateResult: formatResult,
+				})
+				.change(function(e){
+					// console.log(productSelected);
+					if(e.target.value != ''){
+						window.location.href = "{{ url('/details') }}" + "/" + e.target.value;
+					}
+				});
+			});
+
+			function formatResult(option){
+				// Si está cargando mostrar texto de carga
+				if (option.loading) {
+					return '<span class="text-center"><i class="fas fa-spinner fa-spin"></i> Buscando...</span>';
+				}
+				
+				let image = "{{ asset('images/default.jpg') }}";
+				if(option.images){
+					let images = JSON.parse(option.images);
+					image = "{{ asset('storage') }}/"+images[0].replace('.', '-cropped.');
+				}
+				// Mostrar las opciones encontradas
+				return $(`<div style="display: flex">
+								<div style="margin: 0px 10px">
+									<img src="${image}" width="60px" />
+								</div>
+								<div>
+									<b style="font-size: 16px">${option.name} - ${option.category.name}</b><br>
+									<span>${option.brand.name}</span> - 
+									${option.price} Bs. ${option.stock > 0 ? '' : '<label class="label label-danger">Agotado</label>'}
+									<small>${option.description ? '<br>'+option.description : ''}</small>
+								</div>
+							</div>`);
+			}
+
+		</script>
 	</body>
 </html>

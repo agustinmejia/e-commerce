@@ -97,7 +97,7 @@
                 quietMillis: 250,
                 minimumInputLength: 2,
                 ajax: {
-                    url: "{{ url('admin/products/list/ajax') }}",        
+                    url: "{{ url('admin/products/list/ajax') }}",
                     processResults: function (data) {
                         return {
                             results: data

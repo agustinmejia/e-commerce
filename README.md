@@ -8,6 +8,6 @@
 ```
 composer install
 cp .env.example .env
-php artisan template:install
+php artisan ecommerce:install
 chmod -R 777 storage bootstrap/cache
 ```

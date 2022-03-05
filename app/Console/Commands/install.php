@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use File;
 use TCG\Voyager\VoyagerServiceProvider;
+use Database\Seeders\DatabaseSeederEShop;
 
 class install extends Command
 {
@@ -42,7 +43,7 @@ class install extends Command
     {
         if($this->option('reset')){
             $this->call('migrate:fresh');
-            $this->call('db:seed');
+            $this->call('db:seed', ['--class' => DatabaseSeederEShop::class]);
             $this->info('La base de datos de Laravel Ecommerce ha sido reiniciada ;)');
         }else{
             
@@ -56,7 +57,7 @@ class install extends Command
             if(!$empty_database){
                 $this->call('key:generate');
                 $this->call('migrate');
-                $this->call('db:seed');
+                $this->call('db:seed', ['--class' => DatabaseSeederEShop::class]);
                 $this->call('storage:link');
                 $this->call('vendor:publish', ['--provider' => VoyagerServiceProvider::class, '--tag' => ['config', 'voyager_avatar']]);
                 $this->info('Gracias por instalar Laravel Ecommerce!!!');

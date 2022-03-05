@@ -39,5 +39,16 @@ class PermissionsTableSeeder extends Seeder
         Permission::generateFor('purchases');
         Permission::generateFor('sales');
         Permission::generateFor('suppliers');
+
+        $keys = [
+            'browse_reportssales',
+        ];
+
+        foreach ($keys as $key) {
+            Permission::firstOrCreate([
+                'key'        => $key,
+                'table_name' => 'reports',
+            ]);
+        }
     }
 }

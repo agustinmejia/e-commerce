@@ -13,7 +13,7 @@
                             ->whereRaw($max_price ? "price <=$max_price" : 1)
                             ->withCount('sales_details')
                             ->orderBy('sales_details_count', 'desc')
-                            ->where('deleted_at', NULL)->paginate(5);
+                            ->where('deleted_at', NULL)->paginate(8);
             // dd($products);
         @endphp
         @forelse ($products as $item)
@@ -27,7 +27,9 @@
                 <div class="card-body">
                     <div class="row">
                         <aside class="col-sm-3">
-                            <div class="img-wrap"><img src="{{ asset($image) }}" alt="{{ $item->name }}"></div>
+                            <a href="{{ url('details/'.$item->slug) }}" title="Click para ver detalles">
+                                <div class="img-wrap"><img src="{{ asset($image) }}" alt="{{ $item->name }}"></div>
+                            </a>
                         </aside>
                         <article class="col-sm-6">
                             <h4 class="title"> {{ $item->name }} | <small style="font-size: 15px">{{ $item->category->name }}</small> </h4>
@@ -57,12 +59,13 @@
                                     {{-- <del class="price-old"> $98</del> --}}
                                 </div>
                                 <p class="text-success">Envío gratis</p>
-                                <br>
+                                {{-- <p>
+                                    <button type="button" data-item='@json($item)' class="btn btn-primary btn-sm btn-add-cart"><i class="fas fa-shopping-cart"></i> &nbsp; Agregar a carrito</button>
+                                </p> --}}
                                 <p>
-                                    <a href="{{ url('details/'.$item->slug) }}" class="btn btn-primary"> Ver detalles &nbsp; <i class="fa fa-list"></i> </a>
-                                    {{-- <a href="#" class="btn btn-secondary"> Details  </a> --}}
+                                    <a href="{{ url('details/'.$item->slug) }}" class="btn btn-secondary btn-sm"><i class="fas fa-list-alt"></i> &nbsp; Ver detalles</a>
                                 </p>
-                                {{-- <a href="#"><i class="fa fa-heart"></i> Add to wishlist</a> --}}
+                                <a href="#"><i class="fa fa-heart"></i> Me gusta</a>
                             </div>
                         </aside>
                     </div>
