@@ -142,6 +142,7 @@
 @section('javascript')
     <script>
         var productSelected, customerSelected;
+        var typeAmountReceived = "{{ setting('ventas.type_amount_received') }}"
         $(document).ready(function(){
             $('#select-product_id').select2({
                 placeholder: '<i class="fa fa-search"></i> Buscar...',
@@ -287,6 +288,11 @@
             });
             $('#label-total').text(total.toFixed(2));
             $('#input-amount').attr('max', total.toFixed(2));
+            
+            // Si la opción de ingresar el monto recibido está deshabilitada se debe autocompletar el input
+            if(!typeAmountReceived){
+                $('#input-amount').attr('value', total.toFixed(2));
+            }
         }
 
         function setNumber(){
@@ -328,7 +334,7 @@
                             <div>
                                 <b style="font-size: 16px">${option.name} - ${option.category.name}</b><br>
                                 <span>${option.brand.name}</span> - 
-                                ${option.price} Bs. ${option.stock > 0 ? ' | '+option.stock+' Unidades' : '<label class="label label-danger">Agotado</label>'}
+                                ${option.price} Bs. ${option.stock > 0 ? ' | '+option.stock+' Unidades' : '<label class="label label-danger">Agotado</label>'} ${option.location ? ' | '+option.location : ''}
                                 ${option.description ? '<br>'+option.description : ''}
                             </div>
                         </div>`);

@@ -13,7 +13,7 @@
                             ->whereRaw($max_price ? "price <=$max_price" : 1)
                             ->withCount('sales_details')
                             ->orderBy('sales_details_count', 'desc')
-                            ->where('deleted_at', NULL)->paginate(8);
+                            ->where('deleted_at', NULL)->paginate(5);
             // dd($products);
         @endphp
         @forelse ($products as $item)
@@ -31,7 +31,7 @@
                                 <div class="img-wrap"><img src="{{ asset($image) }}" alt="{{ $item->name }}"></div>
                             </a>
                         </aside>
-                        <article class="col-sm-6">
+                        <article class="col-sm-6 mt-3">
                             <h4 class="title"> {{ $item->name }} | <small style="font-size: 15px">{{ $item->category->name }}</small> </h4>
                                 <div class="rating-wrap  mb-2">
                                     <ul class="rating-stars">
@@ -59,11 +59,9 @@
                                     {{-- <del class="price-old"> $98</del> --}}
                                 </div>
                                 <p class="text-success">Envío gratis</p>
-                                {{-- <p>
-                                    <button type="button" data-item='@json($item)' class="btn btn-primary btn-sm btn-add-cart"><i class="fas fa-shopping-cart"></i> &nbsp; Agregar a carrito</button>
-                                </p> --}}
-                                <p>
-                                    <a href="{{ url('details/'.$item->slug) }}" class="btn btn-secondary btn-sm"><i class="fas fa-list-alt"></i> &nbsp; Ver detalles</a>
+                                <p class="text-center">
+                                    <a href="https://wa.me/{{ setting('social.whatsapp') ?? '59175199157' }}?text={{ url('details/'.$item->slug) }} Vi%20esto%20en%20tu%20sitio%20web" target="_blank" class="btn btn-success btn-sm" style="margin-bottom: 5px"><i class="fab fa-whatsapp"></i> &nbsp; WhastApp</a>
+                                    <a href="{{ url('details/'.$item->slug) }}" class="btn btn-secondary btn-sm" style="margin-bottom: 5px"><i class="fas fa-list-alt"></i> &nbsp; Ver detalles</a>
                                 </p>
                                 <a href="#"><i class="fa fa-heart"></i> Me gusta</a>
                             </div>

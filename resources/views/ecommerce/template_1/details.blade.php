@@ -102,12 +102,11 @@
                                         <table>
                                             <tr>
                                                 <td>
-                                                    <a href="https://wa.me/59175199157?text=Me%20interesa%20la/el%20{{ $product->name }}" target="_blank" class="btn btn-success btn-sm" style="height: 28px;"><i class="fab fa-whatsapp"></i> WhastApp</a>
+                                                    <a href="https://wa.me/{{ setting('social.whatsapp') ?? '59175199157' }}?text={{ url('details/'.$product->slug) }} Vi%20esto%20en%20tu%20sitio%20web" target="_blank" class="btn btn-success btn-sm" style="height: 28px;"><i class="fab fa-whatsapp"></i> WhastApp</a>
                                                 </td>
                                                 <td>
                                                     <div class="fb-like" data-href="{{ url('details/'.$product->slug) }}" data-width="" data-layout="button_count" data-action="like" data-size="large" data-share="true"></div>
                                                 </td>
-                                                
                                             </tr>
                                         </table>
                                     </div>

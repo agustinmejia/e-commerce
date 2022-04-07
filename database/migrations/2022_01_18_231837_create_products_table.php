@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->foreignId('products_brand_id')->nullable()->constrained('products_brands');
             $table->string('name')->nullable();
             $table->string('slug')->unique();
+            $table->string('location')->nullable();
             $table->text('description')->nullable();
             $table->text('long_description')->nullable();
             $table->decimal('price', 10, 2)->nullable();
@@ -26,7 +27,7 @@ class CreateProductsTable extends Migration
             $table->integer('stock')->nullable()->default(0);
             $table->smallInteger('views')->nullable()->default(0);
             $table->text('images')->nullable();
-            $table->string('status')->nullable();
+            $table->string('status')->nullable()->default('disponible');
             $table->timestamps();
             $table->softDeletes();
         });

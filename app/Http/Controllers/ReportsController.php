@@ -26,7 +26,9 @@ class ReportsController extends Controller
                 $query = "DATE(created_at) >= '$request->start' AND DATE(created_at) <= '$request->finish'";
                 break;
         }
-        $data = Sale::with(['user', 'details.product', 'customer'])->whereRaw($query)->get();
+        $data = Sale::with(['user', 'details.product', 'customer', 'payments' => function($q){
+                    $q->where('deleted_at', NULL);
+                }])->whereRaw($query)->get();
         // dd($query);
         return view('reports.sales-list', compact('data'));
     }

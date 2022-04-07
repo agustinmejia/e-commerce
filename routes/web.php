@@ -8,6 +8,7 @@ use App\Http\Controllers\ProductsControllers;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\ReportsController;
+use App\Http\Controllers\ImportsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +60,10 @@ Route::group(['prefix' => 'admin'], function () {
     // Reportes
     Route::get('reports/sales', [ReportsController::class, 'sales_index'])->name('reports.sales.index');
     Route::post('reports/sales/list', [ReportsController::class, 'sales_list'])->name('reports.sales.list');
+
+    // Imports
+    Route::get('imports', [ImportsController::class, 'index'])->name('imports.index');
+    Route::post('imports/store', [ImportsController::class, 'store'])->name('imports.store');
 });
 
 // Clear cache

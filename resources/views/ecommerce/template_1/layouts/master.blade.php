@@ -140,21 +140,21 @@
                             </form>
 						</div>
 						<div class="col-lg-3 col-sm-3 text-right div-header-right">
-							<a href="tel:{{ setting('social.whatsapp') ?? '+591 75199157' }}" class="widget-header text-left div-contact-whatsapp">
+							<a href="tel:{{ setting('social.whatsapp') ?? '59175199157' }}" class="widget-header text-left div-contact-whatsapp">
 								<div class="icontext">
 									<div class="icon-wrap"><i class="flip-h fa-lg fab fa-whatsapp"></i></div>
 									<div class="text-wrap">
 										<small>WhatsApp</small>
-										<div>{{ setting('social.whatsapp') ?? '+591 75199157' }}</div>
+										<div>+{{ setting('social.whatsapp') ?? '59175199157' }}</div>
 									</div>
 								</div>
 							</a>
-							<a href="#" class="widget-header">
+							{{-- <a href="#" class="widget-header">
 								<div class="icontext">
 									<div class="icon-wrap icon-sm round border"><i class="fa fa-shopping-cart"></i></div>
 								</div>
 								<span class="badge badge-pill badge-danger notify count-shopping-cart">0</span>
-							</a>
+							</a> --}}
 						</div>
 					</div>
 				</div>
@@ -163,7 +163,7 @@
 
 		@yield('content')
 
-		<div class="shopping-cart-mobile" style="position: fixed; bottom: 20px; right: 20px">
+		{{-- <div class="shopping-cart-mobile" style="position: fixed; bottom: 20px; right: 20px">
 			<a href="#" class="widget-header">
 				<div class="icontext">
 					<div class="icon-wrap icon-sm round border" style="width: 60px; height: 60px">
@@ -172,7 +172,7 @@
 				</div>
 				<span class="badge badge-pill badge-danger notify count-shopping-cart" style="font-size: 13px">0</span>
 			</a>
-		</div>
+		</div> --}}
 
 		<!-- ========================= FOOTER ========================= -->
 		<footer class="section-footer bg-secondary">
@@ -213,7 +213,7 @@
 							<article class="white">
 								<h5 class="title">Contacto</h5>
 								<p>
-									<strong>Celular: </strong> {{ setting('site.phones') ?? '+591 75199157' }} <br> 
+									<strong>Telefono/Celular: <br> </strong> {{ setting('site.phones') ?? '75199157' }} <br> 
 									<strong>Email: <br> </strong> {{ setting('site.email') ?? 'agustinmejiamuiba@gmail.com' }} <br>
 									<strong>Dirección: <br> </strong> {{ setting('site.address') ?? 'Calle Ipurupuru Nro 75' }} <br> 
 								</p>

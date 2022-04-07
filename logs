@@ -2,3 +2,4 @@ Mejoras en la interface de ecommerce
 
 Instrucciones
 - Ejecutar los seeders: SettingsTableSeeder, UpdateBreadSeeder, UpdatePermissionsSeeder
+- crear el setting ventas.type_amount_received

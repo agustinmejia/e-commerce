@@ -913,7 +913,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 1,
                 'delete' => 1,
                 'details' => '{"validation":{"rule":"required|max:191"}}',
-                'order' => 6,
+                'order' => 7,
             ),
             56 => 
             array (
@@ -929,7 +929,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 1,
                 'delete' => 1,
                 'details' => '{"slugify":{"origin":"name","forceUpdate":true}}',
-                'order' => 7,
+                'order' => 8,
             ),
             57 => 
             array (
@@ -945,7 +945,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 1,
                 'delete' => 1,
                 'details' => '{"validation":{"rule":"required"}}',
-                'order' => 14,
+                'order' => 16,
             ),
             58 => 
             array (
@@ -961,7 +961,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 1,
                 'delete' => 1,
                 'details' => '{"validation":{"rule":"required"},"display":{"width":6},"step":0.1,"min":0}',
-                'order' => 8,
+                'order' => 9,
             ),
             59 => 
             array (
@@ -977,7 +977,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 1,
                 'delete' => 1,
                 'details' => '{"display":{"width":6},"step":0.1,"min":0}',
-                'order' => 9,
+                'order' => 10,
             ),
             60 => 
             array (
@@ -989,11 +989,11 @@ class DataRowsTableSeeder extends Seeder
                 'required' => 0,
                 'browse' => 1,
                 'read' => 1,
-                'edit' => 0,
+                'edit' => 1,
                 'add' => 1,
                 'delete' => 1,
                 'details' => '{"validation":{"rule":"required"},"display":{"width":6},"step":1,"min":0}',
-                'order' => 10,
+                'order' => 11,
             ),
             61 => 
             array (
@@ -1008,8 +1008,8 @@ class DataRowsTableSeeder extends Seeder
                 'edit' => 1,
                 'add' => 1,
                 'delete' => 1,
-                'details' => '{"resize":{"width":"1000","height":null},"quality":"70%","upsize":true,"thumbnails":[{"name":"medium","scale":"50%"},{"name":"small","scale":"25%"},{"name":"cropped","crop":{"width":"300","height":"250"}},{"name":"social","crop":{"width":"600","height":"315"}}]}',
-                'order' => 13,
+                'details' => '{"display":{"width":6},"resize":{"width":"1000","height":null},"quality":"70%","upsize":true,"thumbnails":[{"name":"medium","scale":"50%"},{"name":"small","scale":"25%"},{"name":"cropped","crop":{"width":"300","height":"250"}},{"name":"social","crop":{"width":"600","height":"315"}}]}',
+                'order' => 15,
             ),
             62 => 
             array (
@@ -1025,7 +1025,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 1,
                 'delete' => 1,
                 'details' => '{"display":{"width":6},"options":{"disponible":"disponible","no disponible":"no disponible"}}',
-                'order' => 11,
+                'order' => 12,
             ),
             63 => 
             array (
@@ -1041,7 +1041,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 0,
                 'delete' => 0,
                 'details' => '{}',
-                'order' => 16,
+                'order' => 18,
             ),
             64 => 
             array (
@@ -1057,7 +1057,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 0,
                 'delete' => 0,
                 'details' => '{}',
-                'order' => 17,
+                'order' => 19,
             ),
             65 => 
             array (
@@ -1073,7 +1073,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 0,
                 'delete' => 0,
                 'details' => '{}',
-                'order' => 18,
+                'order' => 20,
             ),
             66 => 
             array (
@@ -1265,7 +1265,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 0,
                 'delete' => 0,
                 'details' => '{}',
-                'order' => 12,
+                'order' => 13,
             ),
             78 => 
             array (
@@ -1281,7 +1281,23 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 1,
                 'delete' => 1,
                 'details' => '{}',
-                'order' => 15,
+                'order' => 17,
+            ),
+            79 => 
+            array (
+                'id' => 81,
+                'data_type_id' => 8,
+                'field' => 'location',
+                'type' => 'text',
+                'display_name' => 'Ubicación',
+                'required' => 0,
+                'browse' => 1,
+                'read' => 1,
+                'edit' => 1,
+                'add' => 1,
+                'delete' => 1,
+                'details' => '{"validation":{"rule":"max:50"},"display":{"width":6},"placeholder":"Estante A-1"}',
+                'order' => 14,
             ),
         ));
         
