@@ -211,7 +211,7 @@
         </div>
     </form>
 
-    {{-- Single delete modal --}}
+    {{-- Delete modal --}}
     <div class="modal modal-danger fade" tabindex="-1" id="delete-modal" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -248,6 +248,11 @@
                 if (e.keyCode == 13) {
                     list(1);
                 }
+            });
+
+            $('#select-pagination').change(function(){
+                pagination = $(this).val();
+                list();
             });
         });
 

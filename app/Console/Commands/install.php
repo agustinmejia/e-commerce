@@ -54,7 +54,7 @@ class install extends Command
                 $empty_database = true;
             }
 
-            if(!$empty_database){
+            if($empty_database){
                 $this->call('key:generate');
                 $this->call('migrate');
                 $this->call('db:seed', ['--class' => DatabaseSeederEShop::class]);

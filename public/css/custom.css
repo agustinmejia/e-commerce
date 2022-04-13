@@ -21,7 +21,7 @@
     overflow-y: hidden;
 }
 
-th{
+th, th a{
     font-weight: bold !important;
     color: #fff !important;
     background-color: #5499C7 !important;

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 // Controllers
 use App\Http\Controllers\PurchasesController;
-use App\Http\Controllers\ProductsControllers;
+use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\ReportsController;
@@ -46,7 +46,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('purchases/list/ajax', [PurchasesController::class, 'list']);
 
     // Products
-    Route::get('products/list/ajax', [ProductsControllers::class, 'list']);
+    Route::get('products', [ProductsController::class, 'index'])->name('voyager.products.index');
+    Route::get('products/list/ajax', [ProductsController::class, 'list']);
 
     // Customers
     Route::get('customers/list/ajax', [CustomersController::class, 'list']);

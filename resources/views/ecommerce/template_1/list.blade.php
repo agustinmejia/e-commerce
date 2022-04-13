@@ -60,8 +60,8 @@
                                 </div>
                                 <p class="text-success">Envío gratis</p>
                                 <p class="text-center">
-                                    <a href="https://wa.me/{{ setting('social.whatsapp') ?? '59175199157' }}?text={{ url('details/'.$item->slug) }} Vi%20esto%20en%20tu%20sitio%20web" target="_blank" class="btn btn-success btn-sm" style="margin-bottom: 5px"><i class="fab fa-whatsapp"></i> &nbsp; WhastApp</a>
-                                    <a href="{{ url('details/'.$item->slug) }}" class="btn btn-secondary btn-sm" style="margin-bottom: 5px"><i class="fas fa-list-alt"></i> &nbsp; Ver detalles</a>
+                                    <a href="https://wa.me/{{ setting('social.whatsapp') ?? '59175199157' }}?text={{ url('details/'.$item->slug) }} Vi%20esto%20en%20tu%20sitio%20web" target="_blank" class="btn btn-success btn-block"><i class="fab fa-whatsapp"></i> &nbsp; WhastApp</a>
+                                    <a href="{{ url('details/'.$item->slug) }}" class="btn btn-secondary btn-block"><i class="fas fa-list-alt"></i> &nbsp; Ver detalles</a>
                                 </p>
                                 <a href="#"><i class="fa fa-heart"></i> Me gusta</a>
                             </div>

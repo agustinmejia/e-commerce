@@ -168,6 +168,11 @@
                     list(1);
                 }
             });
+
+            $('#select-pagination').change(function(){
+                pagination = $(this).val();
+                list();
+            });
         });
 
         function list(page = 1){
