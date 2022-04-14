@@ -1,11 +1,11 @@
 @extends('voyager::master')
 
-@section('page_title', 'Viendo Registros')
+@section('page_title', 'Viendo Productos')
 
 @section('page_header')
     <div class="container-fluid">
         <h1 class="page-title">
-            <i class="voyager-basket"></i> Registros
+            <i class="voyager-archive"></i> Productos
         </h1>
         <a href="{{ route('voyager.products.create') }}" class="btn btn-success btn-add-new">
             <i class="voyager-plus"></i> <span>Crear</span>
@@ -81,7 +81,7 @@
     <script src="{{ asset('ecommerce/plugins/fancybox/fancybox.min.js') }}" type="text/javascript"></script>
     <script>
         const URL = "{{ url('admin/products/list/ajax') }}";
-        var pagination = 10;
+        var paginate = 10;
         $(document).ready(function() {
             list();
 
@@ -92,14 +92,14 @@
             });
 
             $('#select-pagination').change(function(){
-                pagination = $(this).val();
+                paginate = $(this).val();
                 list();
             });
         });
 
         function list(page = 1){
             let q = $('#input-search').val();
-            $.get(`${URL}?pagination=${pagination}&page=${page}&q=${q}`, function(res){
+            $.get(`${URL}?paginate=${paginate}&page=${page}&q=${q}`, function(res){
                 $('#data-results').html(res);
             });
         }

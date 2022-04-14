@@ -136,14 +136,21 @@
         .form-group{
             margin-bottom: 10px !important;
         }
+        .label-description{
+            cursor: pointer;
+        }
     </style>
 @endsection
 
 @section('javascript')
+    <script src="{{ asset('vendor/tippy/popper.min.js') }}"></script>
+    <script src="{{ asset('vendor/tippy/tippy-bundle.umd.min.js') }}"></script>
     <script>
         var productSelected, customerSelected;
         var typeAmountReceived = "{{ setting('ventas.type_amount_received') }}"
         $(document).ready(function(){
+
+
             $('#select-product_id').select2({
                 placeholder: '<i class="fa fa-search"></i> Buscar...',
                 escapeMarkup : function(markup) {
@@ -188,7 +195,7 @@
                             <tr class="tr-item" id="tr-item-${product.id}">
                                 <td class="td-item"></td>
                                 <td>
-                                    ${product.name} - ${product.category.name} <br> <small>${product.brand.name}</small>
+                                    <b class="label-description" id="description-${product.id}">${product.name}<br> <small>${product.category.name}</small></b>
                                     <input type="hidden" name="product_id[]" value="${product.id}" />
                                 </td>
                                 <td style="width: 120px">
@@ -202,6 +209,34 @@
                                 <td style="width: 30px" class="text-right"><button type="button" onclick="removeTr(${product.id})" class="btn btn-link"><i class="voyager-trash text-danger"></i></button></td>
                             </tr>
                         `);
+                        // popover
+                        let image = "{{ asset('images/default.jpg') }}";
+                        if(product.images){
+                            image = JSON.parse(product.images)[0];
+                            image = "{{ asset('storage') }}/" + image.replace('.', '-cropped.');
+                        }
+
+                        let last_price = 'No definido';
+                        if(product.purchases_details.length > 0){
+                            last_price = product.purchases_details[0].price;
+                        }
+
+                        tippy(`#description-${product.id}`, {
+                            content: `  <div style="display: flex; flex-direction: row">
+                                            <div style="margin-right:10px">
+                                                <img src="${image}" width="70px" alt="${product.name}" />
+                                            </div>
+                                            <div>
+                                                <b>${product.name}</b><br>
+                                                <small>categoría: <b>${product.category.name}</b></small><br>
+                                                <small>Marca: <b>${product.brand.name}</b> | Precio: Bs. <b>${product.wholesale_price ? product.wholesale_price+' - ' : ''} ${product.price}</b></small><br>
+                                                <small>Stock: <b>${product.stock} Unids.</b> | Ubicación: <b>${product.location}</b></small><br>
+                                                <small>Último precio de compra: Bs. <b>${last_price}</b></small><br>
+                                            </div>
+                                        </div>`,
+                            allowHTML: true,
+                            maxWidth: 450,
+                        });
                     }else{
                         toastr.info('EL producto ya está agregado', 'Información')
                     }
@@ -336,8 +371,8 @@
                                 <img src="${image}" width="60px" />
                             </div>
                             <div>
-                                <b style="font-size: 15px">${show_code ? String(option.id).padStart(4, "0")+'.-' : ''} ${option.name} - ${option.category.name}</b><br>
-                                ${option.brand.id > 1 ? option.brand.name+' - ' : ''} ${option.price} Bs. ${option.stock > 0 ? ' | '+option.stock+' Unidades' : '<label class="label label-danger">Agotado</label>'} ${option.location ? ' | '+option.location : ''}
+                                <b style="font-size: 16px">${show_code ? String(option.id).padStart(4, "0")+'.-' : ''} ${option.name}</b><br>
+                                ${option.category.name} | ${option.brand.id > 1 ? option.brand.name+' - ' : ''} ${option.price} Bs. ${option.stock > 0 ? ' | '+option.stock+' Unidades' : '<label class="label label-danger">Agotado</label>'} ${option.location ? ' | '+option.location : ''}
                                 ${option.description ? '<br>'+option.description : ''}
                             </div>
                         </div>`);

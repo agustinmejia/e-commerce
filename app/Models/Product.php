@@ -50,6 +50,10 @@ class Product extends Model
         return $this->hasMany(SalesDetail::class);
     }
 
+    public function purchases_details(){
+        return $this->hasMany(PurchasesDetail::class);
+    }
+
     public function rating(){
         return $this->hasMany(ProductsRating::class);
     }

@@ -181,15 +181,18 @@
                 let images = JSON.parse(option.images);
                 image = "{{ asset('storage') }}/"+images[0].replace('.', '-cropped.');
             }
+            
+            // Mostrar u ocultar el código en los resultados de busquedas
+            let show_code = "{{ setting('productos.use_code') }}";
+
             // Mostrar las opciones encontradas
             return $(`  <div style="display: flex">
                             <div style="margin: 0px 10px">
                                 <img src="${image}" width="60px" />
                             </div>
                             <div>
-                                <b style="font-size: 16px">${option.name} - ${option.category.name}</b><br>
-                                <span>${option.brand.name}</span> - 
-                                ${option.price} Bs. ${option.stock > 0 ? ' | '+option.stock+' Unidades' : '<label class="label label-danger">Agotado</label>'}
+                                <b style="font-size: 16px">${show_code ? String(option.id).padStart(4, "0")+'.-' : ''} ${option.name}</b><br>
+                                ${option.category.name} | ${option.brand.id > 1 ? option.brand.name+' - ' : ''} ${option.price} Bs. ${option.stock > 0 ? ' | '+option.stock+' Unidades' : '<label class="label label-danger">Agotado</label>'} ${option.location ? ' | '+option.location : ''}
                                 ${option.description ? '<br>'+option.description : ''}
                             </div>
                         </div>`);

@@ -239,7 +239,7 @@
 @section('javascript')
     <script>
         const URL = "{{ url('admin/sales/list/ajax') }}";
-        var pagination = 10;
+        var paginate = 10;
         $(document).ready(function() {
             let page = "{{ session('page') ?? 1 }}";
             list(page);
@@ -251,14 +251,15 @@
             });
 
             $('#select-pagination').change(function(){
-                pagination = $(this).val();
+                paginate = $(this).val();
+                console.log(paginate)
                 list();
             });
         });
 
         function list(page = 1){
             let search = $('#input-search').val();
-            $.get(`${URL}?pagination=${pagination}&page=${page}&search=${search}`, function(res){
+            $.get(`${URL}?paginate=${paginate}&page=${page}&search=${search}`, function(res){
                 $('#data-results').html(res);
             });
         }
