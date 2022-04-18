@@ -16,77 +16,96 @@
             <div class="row">
                 <div class="col-md-8">
                     <div class="panel panel-bordered">
-                        <div class="panel-body" style="min-height: 470px">
-                            <div class="form-group">
-                                <label for="product_id">Buscar producto</label>
-                                <select class="form-control" id="select-product_id"></select>
+                        <div class="panel-body" style="max-height: 470px">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="product_id">Buscar producto</label>
+                                    <select class="form-control" id="select-product_id"></select>
+                                </div>
                             </div>
-                            <br>
-                            <table class="table table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>N&deg;</th>
-                                        <th>Detalles</th>
-                                        <th>Precio</th>
-                                        <th>Cantidad</th>
-                                        <th class="text-right">Subtotal</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody id="table-body">
-                                    <tr id="tr-empty">
-                                        <td colspan="6"><h4 class="text-center">Lista de venta vacía</h4></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 30px">N&deg;</th>
+                                                <th>Detalles</th>
+                                                <th style="min-width: 100px">Precio</th>
+                                                <th style="min-width: 100px">Cantidad</th>
+                                                <th style="min-width: 100px" class="text-right">Subtotal</th>
+                                                <th style="width: 50px"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="table-body">
+                                            <tr id="tr-empty">
+                                                <td colspan="6" style="height: 300px">
+                                                    <h4 class="text-center text-muted" style="margin-top: 50px">
+                                                        <i class="glyphicon glyphicon-shopping-cart" style="font-size: 50px"></i> <br><br>
+                                                        Lista de venta vacía
+                                                    </h4>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="panel panel-bordered">
                         <div class="panel-body">
-                            <div class="row">
-                                <div class="form-group col-md-12">
-                                    <label for="customer_id">Cliente</label>
-                                    <div class="input-group">
-                                        <select name="customer_id" id="select-customer_id" class="form-control"></select>
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-primary" title="Nuevo cliente" data-target="#modal-create-customer" data-toggle="modal" style="margin: 0px" type="button">
-                                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                            </button>
-                                        </span>
-                                    </div>
+                            <div class="form-group col-md-12">
+                                <label for="customer_id">Cliente</label>
+                                <div class="input-group">
+                                    <select name="customer_id" id="select-customer_id" class="form-control"></select>
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary" title="Nuevo cliente" data-target="#modal-create-customer" data-toggle="modal" style="margin: 0px" type="button">
+                                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                        </button>
+                                    </span>
                                 </div>
-                                <div class="form-group col-md-12">
-                                    {{-- <label for="dni">NIT/CI</label> --}}
-                                    <input type="text" name="dni" id="input-dni" value="" class="form-control" placeholder="NIT/CI">
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <input type="number" name="amount" id="input-amount" min="0" step="0.1" class="form-control" placeholder="Monto recibo Bs.">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="date">Fecha de venta</label>
-                                    <input type="date" name="date" value="{{ date('Y-m-d') }}" class="form-control" required>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="next_payment">Próximo pago</label>
-                                    <input type="date" name="next_payment" min="{{ date('Y-m-d') }}"  class="form-control">
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <textarea name="observations" class="form-control" rows="3" placeholder="Observaciones"></textarea>
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <h2 class="text-right"><small>Total: Bs.</small> <b id="label-total">0.00</b></h2>
-                                </div>
-                                <div class="form-group col-md-12 text-right">
-                                    <button type="submit" class="btn btn-primary btn-block">Vender</button>
-                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                {{-- <label for="dni">NIT/CI</label> --}}
+                                <input type="text" name="dni" id="input-dni" value="" class="form-control" placeholder="NIT/CI">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <input type="number" name="amount" id="input-amount" min="0" step="0.1" class="form-control" placeholder="Monto recibo Bs.">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="date">Fecha de venta</label>
+                                <input type="date" name="date" value="{{ date('Y-m-d') }}" class="form-control" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="next_payment">Próximo pago</label>
+                                <input type="date" name="next_payment" min="{{ date('Y-m-d') }}"  class="form-control">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <textarea name="observations" class="form-control" rows="3" placeholder="Observaciones"></textarea>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <h2 class="text-right"><small>Total: Bs.</small> <b id="label-total">0.00</b></h2>
+                            </div>
+                            <div class="form-group col-md-12 text-right">
+                                <button type="submit" class="btn btn-primary btn-block">Vender <i class="voyager-basket"></i></button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </form>
+    </div>
+
+    {{-- Popup para imprimir el recibo --}}
+    <div id="popup-button">
+        <div class="col-md-12" style="padding-top: 5px">
+            <h4 class="text-muted">Desea imprimir el recibo?</h4>
+        </div>
+        <div class="col-md-12 text-right">
+            <button onclick="javascript:$('#popup-button').fadeOut('fast')" class="btn btn-default">Cerrar</button>
+            <a id="btn-print" href="#" target="_blank" title="Imprimir" class="btn btn-danger">Imprimir <i class="glyphicon glyphicon-print"></i></a>
+        </div>
     </div>
 
     {{-- Modal crear cliente --}}
@@ -139,6 +158,32 @@
         .label-description{
             cursor: pointer;
         }
+        #popup-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 400px;
+            height: 100px;
+            background-color: white;
+            box-shadow: 5px 5px 15px grey;
+            z-index: 1000;
+
+            /* Mostrar/ocultar popup */
+            @if(session('sale_id'))
+            animation: show-animation 1s;
+            @else
+            right: -500px;
+            @endif
+        }
+
+        @keyframes show-animation {
+            0% {
+                right: -500px;
+            }
+            100% {
+                right: 20px;
+            }
+        }
     </style>
 @endsection
 
@@ -149,7 +194,16 @@
         var productSelected, customerSelected;
         var typeAmountReceived = "{{ setting('ventas.type_amount_received') }}"
         $(document).ready(function(){
+            
+            @if(session('sale_id'))
+                let saleId = "{{ session('sale_id') }}";
+                $('#btn-print').attr('href', `{{ url('admin/sales/print') }}/${saleId}`);
+            @endif
 
+            // Ocultar popup de impresión
+            setTimeout(() => {
+                $('#popup-button').fadeOut('fast');
+            }, 8000);
 
             $('#select-product_id').select2({
                 placeholder: '<i class="fa fa-search"></i> Buscar...',
@@ -198,15 +252,15 @@
                                     <b class="label-description" id="description-${product.id}">${product.name}<br> <small>${product.category.name}</small></b>
                                     <input type="hidden" name="product_id[]" value="${product.id}" />
                                 </td>
-                                <td style="width: 120px">
+                                <td>
                                     <select name="price[]" class="form-control" id="select-price-${product.id}" onchange="getSubtotal(${product.id})" required>
                                         <option value="${product.price}">${product.price}</option>
                                         ${product.wholesale_price ? `<option value="${product.wholesale_price}">${product.wholesale_price}</option>` : ''}
                                     </select>
                                 </td>
-                                <td style="width: 120px"><input type="number" name="quantity[]" class="form-control" id="input-quantity-${product.id}" onkeyup="getSubtotal(${product.id})" onchange="getSubtotal(${product.id})" value="1" min="1" step="1" max="${product.stock}" required/></td>
+                                <td><input type="number" name="quantity[]" class="form-control" id="input-quantity-${product.id}" onkeyup="getSubtotal(${product.id})" onchange="getSubtotal(${product.id})" value="1" min="1" step="1" max="${product.stock}" required/></td>
                                 <td class="text-right"><h4 class="label-subtotal" id="label-subtotal-${product.id}">${product.price}</h4></td>
-                                <td style="width: 30px" class="text-right"><button type="button" onclick="removeTr(${product.id})" class="btn btn-link"><i class="voyager-trash text-danger"></i></button></td>
+                                <td class="text-right"><button type="button" onclick="removeTr(${product.id})" class="btn btn-link"><i class="voyager-trash text-danger"></i></button></td>
                             </tr>
                         `);
                         // popover
@@ -230,7 +284,7 @@
                                                 <b>${product.name}</b><br>
                                                 <small>categoría: <b>${product.category.name}</b></small><br>
                                                 <small>Marca: <b>${product.brand.name}</b> | Precio: Bs. <b>${product.wholesale_price ? product.wholesale_price+' - ' : ''} ${product.price}</b></small><br>
-                                                <small>Stock: <b>${product.stock} Unids.</b> | Ubicación: <b>${product.location}</b></small><br>
+                                                <small>Stock: <b>${product.stock} Unids.</b> | Ubicación: <b>${product.location ? product.location : ''}</b></small><br>
                                                 <small>Último precio de compra: Bs. <b>${last_price}</b></small><br>
                                             </div>
                                         </div>`,

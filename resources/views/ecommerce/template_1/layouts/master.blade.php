@@ -305,8 +305,8 @@
 									<img src="${image}" width="60px" />
 								</div>
 								<div>
-									<b style="font-size: 16px">${option.name} - ${option.category.name}</b><br>
-									<span>${option.brand.name}</span> - 
+									<b style="font-size: 16px">${option.name}</b><br>
+									<span>${option.category.name} | ${option.brand > 1 ? option.brand.name+' |' : ''}</span>
 									${option.price} Bs. ${option.stock > 0 ? '' : '<label class="label label-danger">Agotado</label>'}
 									<small>${option.description ? '<br>'+option.description : ''}</small>
 								</div>

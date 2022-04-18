@@ -17,49 +17,47 @@
             <div class="col-md-12">
                 <div class="panel panel-bordered">
                     <div class="panel-body">
-                       <div class="row">
-                           <form id="form-report" name="form_report" action="{{ route('reports.sales.list') }}" method="post">
-                                @csrf
-                                <div class="col-md-12" style="margin-bottom: 10px">
-                                    <label class="radio-inline"><input type="radio" name="type" class="radio-option" value="day" checked>Diario</label>
-                                    <label class="radio-inline"><input type="radio" name="type" class="radio-option" value="month">Mensual</label>
-                                    <label class="radio-inline"><input type="radio" name="type" class="radio-option" value="range">Rango de fecha</label>
-                                </div>
-                                <div class="col-md-12 form-inline div-option" id="div-day">
-                                    <input type="date" class="form-control" name="day" value="{{ date('Y-m-d') }}">
-                                    <button type="submit" class="btn btn-primary">Generar</button>
-                                </div>
-                                <div class="col-md-12 form-inline div-option hide" id="div-month">
-                                    <select name="month" id="select-month" class="form-control">
-                                        <option value="1">Enero</option>
-                                        <option value="2">Febrero</option>
-                                        <option value="3">Marzo</option>
-                                        <option value="4">Abril</option>
-                                        <option value="5">Mayo</option>
-                                        <option value="6">Junio</option>
-                                        <option value="7">Julio</option>
-                                        <option value="8">Agosto</option>
-                                        <option value="9">Septiembre</option>
-                                        <option value="10">Octubre</option>
-                                        <option value="11">Noviembre</option>
-                                        <option value="12">Diciembre</option>
-                                    </select>
-                                    <input type="number" class="form-control" name="year" min="2020" max="{{ date('Y') }}" value="{{ date('Y') }}" >
-                                    <button type="submit" class="btn btn-primary">Generar</button>
-                                </div>
-                                <div class="col-md-12 form-inline div-option hide" id="div-range">
-                                    <input type="date" class="form-control" name="start">
-                                    <input type="date" class="form-control" name="finish">
-                                    <button type="submit" class="btn btn-primary">Generar</button>
-                                </div>
-                           </form>
-                       </div>
+                        <form id="form-report" name="form_report" action="{{ route('reports.sales.list') }}" method="post">
+                            @csrf
+                            <input type="hidden" name="type_show">
+                            <div class="col-md-12" style="margin-bottom: 10px">
+                                <label class="radio-inline"><input type="radio" name="type" class="radio-option" value="day" checked>Diario</label>
+                                <label class="radio-inline"><input type="radio" name="type" class="radio-option" value="month">Mensual</label>
+                                <label class="radio-inline"><input type="radio" name="type" class="radio-option" value="range">Rango de fecha</label>
+                            </div>
+                            <div class="col-md-12 form-inline div-option" id="div-day">
+                                <input type="date" class="form-control" name="day" value="{{ date('Y-m-d') }}">
+                                <button type="submit" class="btn btn-primary">Generar</button>
+                            </div>
+                            <div class="col-md-12 form-inline div-option hide" id="div-month">
+                                <select name="month" id="select-month" class="form-control">
+                                    <option value="1">Enero</option>
+                                    <option value="2">Febrero</option>
+                                    <option value="3">Marzo</option>
+                                    <option value="4">Abril</option>
+                                    <option value="5">Mayo</option>
+                                    <option value="6">Junio</option>
+                                    <option value="7">Julio</option>
+                                    <option value="8">Agosto</option>
+                                    <option value="9">Septiembre</option>
+                                    <option value="10">Octubre</option>
+                                    <option value="11">Noviembre</option>
+                                    <option value="12">Diciembre</option>
+                                </select>
+                                <input type="number" class="form-control" name="year" min="2020" max="{{ date('Y') }}" value="{{ date('Y') }}" >
+                                <button type="submit" class="btn btn-primary">Generar</button>
+                            </div>
+                            <div class="col-md-12 form-inline div-option hide" id="div-range">
+                                <input type="date" class="form-control" name="start">
+                                <input type="date" class="form-control" name="finish">
+                                <button type="submit" class="btn btn-primary">Generar</button>
+                            </div>
+                        </form>
 
-                       <div class="row" id="results"></div>
-                       <div id="loader-filter" class="col-md-12 text-center" style="padding-top: 50px; height: 200px">
-                            <img src="{{ asset('images/loading.gif') }}" alt="empty" width="120px"> <br>
-                            <span>Generando...</span>
-                        </div>
+                        <div class="clearfix"></div>
+
+                        <div id="loader-filter"></div>
+                        <div id="data-results" style="margin-top: 20px"></div>
                     </div>
                 </div>
             </div>
@@ -69,9 +67,7 @@
 
 @section('css')
 	<style>
-		#loader-filter{
-			display: none
-		}
+		
 	</style>
 @endsection
 
@@ -87,24 +83,24 @@
 
             // Generar reporte
             $('#form-report').submit(function(e){
-                $('#results').empty();
+                $('#data-results').empty();
 			    $('#loader-filter').fadeIn('fast');
                 e.preventDefault();
-                $.post($(this).attr('action'), $(this).serialize(), function(data){
+                $.post($(this).attr('action'), $(this).serialize(), function(res){
                     $('#loader-filter').fadeOut('fast', function(){
-                        $('#results').html(data);
+                        $('#data-results').html(res);
                     });
                 });
             });
         });
 
 
-        function report_export(type){
-            // var contenido= document.getElementById('results').innerHTML;
-            // var contenidoOriginal= document.body.innerHTML;
-            // document.body.innerHTML = contenido;
-            // window.print();
-            // document.body.innerHTML = contenidoOriginal;
+        function report_export(type_show){
+            $('#form-report').attr('target', '_blank');
+            $('#form-report input[name="type_show"]').val(type_show);
+            window.form_report.submit();
+            $('#form-report').removeAttr('target');
+            $('#form-report input[name="type_show"]').val('');
         }
     </script>
 @stop

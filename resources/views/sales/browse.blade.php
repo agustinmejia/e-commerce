@@ -42,6 +42,8 @@
                                     </div>
                                 </div>
                             </div>
+                            
+                            <div id="loader-filter"></div>
                             <div class="row" id="data-results"></div>
                         </div>
                     </div>
@@ -176,7 +178,7 @@
         </div>
     </div>
 
-    {{-- Single payment modal --}}
+    {{-- Payment modal --}}
     <form action="{{ route('sales.payments.store') }}" id="form-payment" method="POST">
         @csrf
         <input type="hidden" name="sale_id">
@@ -199,7 +201,7 @@
                         </div>
                         <div class="form-group">
                             <label for="observations">Observaciones</label>
-                            <textarea class="form-control" name="observations" placeholder="Observaciones"></textarea>
+                            <textarea class="form-control" name="observations" placeholder="Observaciones" rows="3"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -252,15 +254,17 @@
 
             $('#select-pagination').change(function(){
                 paginate = $(this).val();
-                console.log(paginate)
                 list();
             });
         });
 
         function list(page = 1){
+            $('#loader-filter').fadeIn('fast');
             let search = $('#input-search').val();
             $.get(`${URL}?paginate=${paginate}&page=${page}&search=${search}`, function(res){
-                $('#data-results').html(res);
+                $('#loader-filter').fadeOut('fast', function(){
+                    $('#data-results').html(res);
+                });
             });
         }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 // Models
 use App\Models\Sale;
@@ -28,8 +29,14 @@ class ReportsController extends Controller
         }
         $data = Sale::with(['user', 'details.product', 'customer', 'payments' => function($q){
                     $q->where('deleted_at', NULL);
-                }])->whereRaw($query)->get();
-        // dd($query);
-        return view('reports.sales-list', compact('data'));
+                }])->whereRaw($query)->where('deleted_at', NULL)->get();
+        if($request->type_show == 'pdf'){
+            // return view('reports.sales-list-pdf', compact('data'));
+            $pdf = PDF::loadView('reports.sales-list-pdf', ['data' => $data]);
+            return $pdf->stream();
+        }else{
+            return view('reports.sales-list', compact('data'));
+        }
+        
     }
 }

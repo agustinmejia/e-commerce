@@ -42,6 +42,8 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div id="loader-filter"></div>
                             <div class="row" id="data-results"></div>
                         </div>
                     </div>
@@ -176,9 +178,12 @@
         });
 
         function list(page = 1){
+            $('#loader-filter').fadeIn('fast');
             let search = $('#input-search').val();
             $.get(`${URL}?paginate=${paginate}&page=${page}&search=${search}`, function(res){
-                $('#data-results').html(res);
+                $('#loader-filter').fadeOut('fast', function(){
+                    $('#data-results').html(res);
+                });
             });
         }
 

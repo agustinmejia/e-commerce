@@ -1,7 +1,7 @@
 <div class="col-md-12 text-right">
     @if (count($data))
         {{-- <button type="button" onclick="report_export('excel')" class="btn btn-success"><i class="glyphicon glyphicon-cloud-download"></i> Excel</button> --}}
-        {{-- <button type="button" onclick="report_export('print')" class="btn btn-danger btn-print"><i class="glyphicon glyphicon-print"></i> Imprimir</button> --}}
+        <button type="button" onclick="report_export('pdf')" class="btn btn-danger btn-print"><i class="glyphicon glyphicon-print"></i> Imprimir</button>
     @endif
 </div>
 <div class="col-md-12">

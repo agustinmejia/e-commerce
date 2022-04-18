@@ -1,4 +1,12 @@
+/* Custom */
+#loader-filter{
+    display: none;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+}
 
+/* Custom bootstrap */
 .form-control, .select2-selection, .mce-tinymce {
     border: 1px solid #c3c5c7 !important;
     color: #555555
@@ -28,4 +36,20 @@ th, th a{
 }
 td{
     color: #555555 !important
+}
+
+@media (max-width: 768px) {
+    .navbar-header{
+        padding-left: 20px !important;
+    }
+    .container-fluid{
+        padding: 0px !important;
+    }
+    .panel-body{
+        padding: 15px 0px !important;
+        padding-bottom: 0px !important;
+    }
+    .table-responsive{
+        border: 0px !important;
+    }
 }

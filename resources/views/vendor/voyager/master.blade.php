@@ -147,6 +147,10 @@ if (\Illuminate\Support\Str::startsWith(Auth::user()->avatar, 'http://') || \Ill
         toastr.error("toastr alert-type " + alertType + " is unknown");
     }
     @endif
+
+    // Custom loader
+    $('#loader-filter').html('<img src="/images/loading.gif" alt="empty" width="80px" /> <br><span>Cargando...</span>');
+    
 </script>
 @include('voyager::media.manager')
 @yield('javascript')

@@ -55,11 +55,26 @@
                         <td>{{ strftime('%d/%b/%Y %H:%M', strtotime($item->created_at)) }}<br><small>{{ Carbon\Carbon::parse($item->created_at)->diffForHumans() }}</small></td>
                         <td>
                             <div class="no-sort no-click bread-actions text-right">
-                                @if (!$item->deleted_at && $item->status == 'pendiente')
-                                    <button type="button" data-toggle="modal" data-target="#payment-modal" data-item='@json($item)' title="Pagar" class="btn btn-sm btn-dark payment">
-                                        <i class="voyager-dollar"></i> <span class="hidden-xs hidden-sm">Pagar</span>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                        Más <span class="caret"></span>
                                     </button>
-                                @endif
+                                  
+                                    <ul class="dropdown-menu" role="menu">
+                                        @if (!$item->deleted_at && $item->status == 'pendiente')
+                                            <li>
+                                                <a href="#" data-toggle="modal" data-target="#payment-modal" data-item='@json($item)' title="Pagar" class="btn-payment">
+                                                    <i class="voyager-dollar"></i> <span class="hidden-xs hidden-sm">Pagar</span>
+                                                </a>
+                                            </li>
+                                        @endif
+                                        <li>
+                                            <a href="{{ route('sales.print', ['id' => $item->id]) }}" target="_blank" title="Imprimir">
+                                                <i class="glyphicon glyphicon-print"></i> <span class="hidden-xs hidden-sm">Imprimir</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
                                 <a href="#" data-toggle="modal" data-target="#show-modal" data-item='@json($item)' title="Ver" class="btn btn-sm btn-warning view">
                                     <i class="voyager-eye"></i> <span class="hidden-xs hidden-sm">Ver</span>
                                 </a>
@@ -95,10 +110,10 @@
 </div>
 
 <style>
-    .payment{
+    /* .payment{
         border: 1px;
         padding: 5px 10px !important;
-    }
+    } */
 </style>
 
 <script>
@@ -175,7 +190,7 @@
 
         });
 
-        $('.payment').click(function(){
+        $('.btn-payment').click(function(){
             let item = $(this).data('item');
             let total_payment = 0;
             item.payments.map(payment => {

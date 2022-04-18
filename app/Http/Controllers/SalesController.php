@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 // Models
 use App\Models\Sale;
@@ -124,7 +125,7 @@ class SalesController extends Controller
 
             DB::commit();
 
-            return redirect()->route('sales.create')->with(['message' => 'Venta registrada correctamente.', 'alert-type' => 'success']);
+            return redirect()->route('sales.create')->with(['message' => 'Venta registrada correctamente.', 'alert-type' => 'success', 'sale_id' => $sale->id]);
         
         } catch (\Throwable $th) {
             DB::rollback();
@@ -204,6 +205,9 @@ class SalesController extends Controller
         }
     }
 
+
+    // Payments
+
     public function payments_store(Request $request){
         DB::beginTransaction();
         try {
@@ -247,5 +251,14 @@ class SalesController extends Controller
             // dd($th);
             return redirect()->route('sales.index')->with(['message' => 'Ocurrió un error.', 'alert-type' => 'error', 'page' => $request->page]);
         }
+    }
+
+    // Recipes
+    
+    public function print($id){
+        $sale = Sale::findOrFail($id);
+        // return view('sales.print.recipe', compact('sale'));
+        $pdf = PDF::loadView('sales.print.recipe', ['sale' => $sale]);
+        return $pdf->stream();
     }
 }

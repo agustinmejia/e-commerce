@@ -57,6 +57,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('sales', SalesController::class);
     Route::get('sales/list/ajax', [SalesController::class, 'list']);
     Route::post('sales/payments/store', [SalesController::class, 'payments_store'])->name('sales.payments.store');
+    Route::get('sales/print/{id}', [SalesController::class, 'print'])->name('sales.print');
 
     // Reportes
     Route::get('reports/sales', [ReportsController::class, 'sales_index'])->name('reports.sales.index');
