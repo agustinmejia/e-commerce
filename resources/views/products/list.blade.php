@@ -48,6 +48,15 @@
                         <td>{{ strftime('%d/%b/%Y %H:%M', strtotime($item->created_at)) }}<br><small>{{ Carbon\Carbon::parse($item->created_at)->diffForHumans() }}</small></td>
                         <td>
                             <div class="no-sort no-click bread-actions text-right">
+                                <div class="btn-group" style="margin-right: 5px">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                        Más <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#" class="btn-barcode" data-item='@json($item)' data-toggle="modal" data-target="#barcode-modal">código de barras</a></li>
+                                        {{-- <li class="divider"></li> --}}
+                                    </ul>
+                                </div>
                                 <a href="{{ route('voyager.products.show', ['id' => $item->id]) }}" title="Ver" class="btn btn-sm btn-warning view">
                                     <i class="voyager-eye"></i> <span class="hidden-xs hidden-sm">Ver</span>
                                 </a>
@@ -83,6 +92,40 @@
     </div>
 </div>
 
+{{-- Barcode modal --}}
+<div class="modal modal-primary fade" tabindex="-1" id="barcode-modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"><i class="voyager-tag"></i> Códigos de barra</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="code">Código de barras</label>
+                    <input type="text" id="input-barcode" class="form-control">
+                    <small>Escanee el código de barras o escribalo y presione <b>Enter</b>.</small>
+                </div>
+                <div class="form-group">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>N&deg;</th>
+                                <th>Código</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-barcodes"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <style>
     
 </style>
@@ -96,6 +139,30 @@
             if(link){
                 page = link.split('=')[1];
                 list(page);
+            }
+        });
+
+        $('.btn-barcode').click(function(){
+            $('#table-barcodes').empty();
+            let item = $(this).data('item');
+            if(item.barcodes){
+                let barcodes = JSON.parse(item.barcodes);
+                if(barcodes.length > 0){
+                    barcodes.map((code, index) => {
+                        $('#table-barcodes').append(`
+                            <tr>
+                                <td>${index +1}</td>
+                                <td>${code}</td>
+                                <td class="text-right"><i class="voyager-trash text-danger"></i></td>
+                            </tr>
+                        `);
+                    });
+                }else{
+                    barcodes.map((code, index) => {
+                        $('#table-barcodes').html(`<tr><td colspan="3">No hay resultados</td></tr>`);
+                    });
+                }
+                
             }
         });
     });

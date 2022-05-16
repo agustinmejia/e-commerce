@@ -24,6 +24,7 @@ class Product extends Model
         'wholesale_price',
         'stock',
         'images',
+        'barcodes',
         'views',
         'status'
     ];

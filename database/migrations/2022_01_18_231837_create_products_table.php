@@ -27,6 +27,7 @@ class CreateProductsTable extends Migration
             $table->integer('stock')->nullable()->default(0);
             $table->smallInteger('views')->nullable()->default(0);
             $table->text('images')->nullable();
+            $table->text('barcodes')->nullable();
             $table->string('status')->nullable()->default('disponible');
             $table->timestamps();
             $table->softDeletes();

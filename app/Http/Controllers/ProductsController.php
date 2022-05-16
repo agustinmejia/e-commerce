@@ -20,7 +20,7 @@ class ProductsController extends Controller
         $data = Product::with(['category', 'brand', 'purchases_details' => function($q){
                         $q->orderBy('id', 'DESC');
                     }])
-                    ->whereRaw($search ? '(id = '.intval($search).' or name like "%'.$search.'%" or location like "%'.$search.'%")' : 1)
+                    ->whereRaw($search ? '(id = '.intval($search).' or name like "%'.$search.'%" or location like "%'.$search.'%" or barcodes like "%'.$search.'%")' : 1)
                     ->orWhere(function($query) use ($search){
                         if($search){
                             $query->OrwhereHas('category', function($query) use($search){

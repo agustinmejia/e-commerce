@@ -913,7 +913,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 1,
                 'delete' => 1,
                 'details' => '{"validation":{"rule":"required|max:191"}}',
-                'order' => 7,
+                'order' => 6,
             ),
             56 => 
             array (
@@ -929,7 +929,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 1,
                 'delete' => 1,
                 'details' => '{"slugify":{"origin":"name","forceUpdate":true}}',
-                'order' => 8,
+                'order' => 7,
             ),
             57 => 
             array (
@@ -961,7 +961,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 1,
                 'delete' => 1,
                 'details' => '{"validation":{"rule":"required"},"display":{"width":6},"step":0.1,"min":0}',
-                'order' => 9,
+                'order' => 8,
             ),
             59 => 
             array (
@@ -977,7 +977,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 1,
                 'delete' => 1,
                 'details' => '{"display":{"width":6},"step":0.1,"min":0}',
-                'order' => 10,
+                'order' => 9,
             ),
             60 => 
             array (
@@ -993,7 +993,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 1,
                 'delete' => 1,
                 'details' => '{"validation":{"rule":"required"},"display":{"width":6},"step":1,"min":0}',
-                'order' => 11,
+                'order' => 10,
             ),
             61 => 
             array (
@@ -1009,7 +1009,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 1,
                 'delete' => 1,
                 'details' => '{"display":{"width":6},"resize":{"width":"1000","height":null},"quality":"70%","upsize":true,"thumbnails":[{"name":"medium","scale":"50%"},{"name":"small","scale":"25%"},{"name":"cropped","crop":{"width":"300","height":"250"}},{"name":"social","crop":{"width":"600","height":"315"}}]}',
-                'order' => 15,
+                'order' => 14,
             ),
             62 => 
             array (
@@ -1025,7 +1025,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 1,
                 'delete' => 1,
                 'details' => '{"display":{"width":6},"options":{"disponible":"disponible","no disponible":"no disponible"}}',
-                'order' => 12,
+                'order' => 11,
             ),
             63 => 
             array (
@@ -1265,7 +1265,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 0,
                 'delete' => 0,
                 'details' => '{}',
-                'order' => 13,
+                'order' => 12,
             ),
             78 => 
             array (
@@ -1297,7 +1297,23 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 1,
                 'delete' => 1,
                 'details' => '{"validation":{"rule":"max:50"},"display":{"width":6},"placeholder":"Estante A-1"}',
-                'order' => 14,
+                'order' => 13,
+            ),
+            80 => 
+            array (
+                'id' => 82,
+                'data_type_id' => 8,
+                'field' => 'barcodes',
+                'type' => 'text',
+                'display_name' => 'Códigos de barras',
+                'required' => 0,
+                'browse' => 0,
+                'read' => 1,
+                'edit' => 0,
+                'add' => 0,
+                'delete' => 0,
+                'details' => '{}',
+                'order' => 15,
             ),
         ));
         

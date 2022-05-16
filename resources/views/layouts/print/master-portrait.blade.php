@@ -36,7 +36,7 @@
 </head>
 <body>
     @php
-        $icon = setting('admin.icon_image') ?? asset('images/icon.png');
+        $icon = url('storage').'/'.setting('admin.icon_image') ?? asset('images/icon.png');
     @endphp
     <div id="watermark">
         <img src="{{ $icon }}" /> 

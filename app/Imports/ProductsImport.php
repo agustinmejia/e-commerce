@@ -18,28 +18,27 @@ class ProductsImport implements ToModel
     public function model(array $row)
     {
         $category = null;
-        if($row[2]){
+        if($row[1]){
             $category = ProductsCategory::firstOrCreate([
-                'name' => $row[2],
+                'name' => $row[1],
             ]);
         }
 
         $brand = null;
-        if($row[3]){
+        if($row[2]){
             $brand = ProductsBrand::firstOrCreate([
-                'name' => $row[3],
+                'name' => $row[2],
             ]);
         }
 
         return new Product([
-            'id' => explode('-', $row[0])[0],
-            // 'id' => $row[0],
             'products_category_id' => $category ? $category->id : 1,
             'products_brand_id' => $brand ? $brand->id : 1 ,
-            'name' => $row[1],
-            'location' => $row[6],
-            'price' => $row[4],
-            'stock' => $row[5],
+            'name' => $row[0],
+            'price' => $row[3],
+            'stock' => $row[4],
+            'location' => $row[5] ?? null,
+            'barcodes' => $row[6] ? json_encode(str_replace(' ', '', explode('-', $row[6]))) : null,
             'status' => 'disponible'
         ]);
     }

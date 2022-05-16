@@ -52,7 +52,6 @@
         </div>
     </div>
 
-
     {{-- Delete modal --}}
     <div class="modal modal-danger fade" tabindex="-1" id="delete-modal" role="dialog">
         <div class="modal-dialog">
@@ -88,6 +87,12 @@
             list();
 
             $('#input-search').on('keyup', function(e) {
+                if (e.keyCode == 13) {
+                    list(1);
+                }
+            });
+
+            $('#input-barcode').on('keyup', function(e) {
                 if (e.keyCode == 13) {
                     list(1);
                 }
