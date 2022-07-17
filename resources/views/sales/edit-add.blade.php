@@ -16,14 +16,14 @@
             <div class="row">
                 <div class="col-md-8">
                     <div class="panel panel-bordered">
-                        <div class="panel-body" style="max-height: 470px">
+                        <div class="panel-body">
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="product_id">Buscar producto</label>
                                     <select class="form-control" id="select-product_id"></select>
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-12" style="height: 350px; max-height: 350px; overflow-y: auto">
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-hover">
                                         <thead>
@@ -38,7 +38,7 @@
                                         </thead>
                                         <tbody id="table-body">
                                             <tr id="tr-empty">
-                                                <td colspan="6" style="height: 300px">
+                                                <td colspan="6" style="height: 290px">
                                                     <h4 class="text-center text-muted" style="margin-top: 50px">
                                                         <i class="glyphicon glyphicon-shopping-cart" style="font-size: 50px"></i> <br><br>
                                                         Lista de venta vacía
@@ -392,7 +392,7 @@
             });
 
             if(length > 0){
-                $('#tr-empty').fadeOut('fast');
+                $('#tr-empty').css('display', 'none');
             }else{
                 $('#tr-empty').fadeIn('fast');
             }

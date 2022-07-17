@@ -24,6 +24,21 @@
 @endsection
 
 @section('content')
+	<!-- ========================= SECTION PAGETOP ========================= -->
+	<section class="section-pagetop bg-secondary">
+		<div class="container clearfix">
+			<h2 class="title-page">Bienvenido a {{ setting('site.title') }}</h2>
+			<nav class="float-left">
+				<ol class="breadcrumb text-white">
+					<li class="breadcrumb-item"><a href="{{ url('/') }}">Inicio</a></li>
+					{{-- <li class="breadcrumb-item"><a href="#">Detalles</a></li> --}}
+					{{-- <li class="breadcrumb-item" aria-current="page">Data</li> --}}
+				</ol>  
+			</nav>
+		</div>
+	</section>
+	<!-- ========================= SECTION INTRO END// ========================= -->
+
 	<!-- ========================= SECTION CONTENT ========================= -->
 	<section class="section-content bg padding-y">
 		<div class="container">

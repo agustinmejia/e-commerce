@@ -60,7 +60,7 @@ class SettingsTableSeeder extends Seeder
                 'value' => NULL,
                 'details' => '',
                 'type' => 'text',
-                'order' => 8,
+                'order' => 17,
                 'group' => 'Site',
             ),
             4 => 
@@ -134,10 +134,10 @@ class SettingsTableSeeder extends Seeder
                 'id' => 11,
                 'key' => 'site.phones',
                 'display_name' => 'Phones',
-                'value' => NULL,
+                'value' => '75199157 - 6854971',
                 'details' => NULL,
                 'type' => 'text',
-                'order' => 4,
+                'order' => 6,
                 'group' => 'Site',
             ),
             11 => 
@@ -145,10 +145,10 @@ class SettingsTableSeeder extends Seeder
                 'id' => 12,
                 'key' => 'site.address',
                 'display_name' => 'Address',
-                'value' => NULL,
+                'value' => 'Calle ipurupuro nro 75',
                 'details' => NULL,
                 'type' => 'text',
-                'order' => 6,
+                'order' => 7,
                 'group' => 'Site',
             ),
             12 => 
@@ -159,7 +159,7 @@ class SettingsTableSeeder extends Seeder
                 'value' => NULL,
                 'details' => NULL,
                 'type' => 'text',
-                'order' => 7,
+                'order' => 8,
                 'group' => 'Site',
             ),
             13 => 
@@ -181,7 +181,7 @@ class SettingsTableSeeder extends Seeder
                 'value' => NULL,
                 'details' => NULL,
                 'type' => 'text',
-                'order' => 10,
+                'order' => 11,
                 'group' => 'Social',
             ),
             15 => 
@@ -192,7 +192,7 @@ class SettingsTableSeeder extends Seeder
                 'value' => NULL,
                 'details' => NULL,
                 'type' => 'text',
-                'order' => 11,
+                'order' => 12,
                 'group' => 'Social',
             ),
             16 => 
@@ -203,7 +203,7 @@ class SettingsTableSeeder extends Seeder
                 'value' => NULL,
                 'details' => NULL,
                 'type' => 'text',
-                'order' => 12,
+                'order' => 13,
                 'group' => 'Social',
             ),
             17 => 
@@ -214,7 +214,7 @@ class SettingsTableSeeder extends Seeder
                 'value' => NULL,
                 'details' => NULL,
                 'type' => 'text',
-                'order' => 13,
+                'order' => 18,
                 'group' => 'Social',
             ),
             18 => 
@@ -222,7 +222,7 @@ class SettingsTableSeeder extends Seeder
                 'id' => 19,
                 'key' => 'ventas.type_amount_received',
                 'display_name' => 'Ingresar monto recibido',
-                'value' => '1',
+                'value' => '0',
                 'details' => NULL,
                 'type' => 'checkbox',
                 'order' => 14,
@@ -238,6 +238,42 @@ class SettingsTableSeeder extends Seeder
                 'type' => 'checkbox',
                 'order' => 15,
                 'group' => 'Productos',
+            ),
+            20 => 
+            array (
+                'id' => 21,
+                'key' => 'ecommerce.template',
+                'display_name' => 'Plantilla',
+                'value' => 'template_1',
+                'details' => '{
+"options": {   "default": "Por defecto",
+"template_1": "Plantilla 1"
+}}',
+                'type' => 'select_dropdown',
+                'order' => 16,
+                'group' => 'Ecommerce',
+            ),
+            21 => 
+            array (
+                'id' => 22,
+                'key' => 'site.bg_image',
+                'display_name' => 'Site Background Image',
+                'value' => '',
+                'details' => NULL,
+                'type' => 'image',
+                'order' => 4,
+                'group' => 'Site',
+            ),
+            22 => 
+            array (
+                'id' => 23,
+                'key' => 'social.whatsapp-group',
+                'display_name' => 'Whatsapp grupo',
+                'value' => '',
+                'details' => NULL,
+                'type' => 'text',
+                'order' => 10,
+                'group' => 'Social',
             ),
         ));
         

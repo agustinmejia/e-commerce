@@ -1969,7 +1969,9 @@ ul.row, ul.row-sm {
   overflow: hidden;
   background-color: #fff;
   background-size: cover;
-  border-radius: 0.25rem; }
+  border-radius: 0.25rem;
+  background-size: cover;
+  background-position: center;}
   .card-banner .card-body {
     background-size: cover;
     position: relative;

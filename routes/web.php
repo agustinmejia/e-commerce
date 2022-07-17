@@ -26,15 +26,15 @@ Route::get('login', function () {
 })->name('login');
 
 Route::get('/', function () {
-    return view('ecommerce.template_1.index');
+    return view('ecommerce.'.setting('ecommerce.template').'.index');
 });
 
 Route::get('/list/products/filter', function () {
-    return view('ecommerce.template_1.list');
+    return view('ecommerce.'.setting('ecommerce.template').'.list');
 });
 
 Route::get('/details/{slug}', function ($slug) {
-    return view('ecommerce.template_1.details', compact('slug'));
+    return view('ecommerce.'.setting('ecommerce.template').'.details', compact('slug'));
 });
 
 
