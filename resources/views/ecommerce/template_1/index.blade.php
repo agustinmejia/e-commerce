@@ -2,7 +2,7 @@
 
 @section('seo')
 	@php
-		$admin_favicon = Voyager::setting('admin.icon_image', '');
+		$admin_favicon = Voyager::setting('site.logo', '');
 		$image = $admin_favicon == '' ? asset('images/icon.png') : Voyager::image($admin_favicon);
 	@endphp
 
@@ -16,12 +16,9 @@
 
 @section('content')
     <!-- ========================= SECTION INTRO ========================= -->
-    @php
-        $site_bg = Voyager::setting('admin.icon_image', '');
-    @endphp
     <section class="section-intro bg-secondary text-white text-center" style="background-image:url('{{ Voyager::image( Voyager::setting("admin.bg_image"), asset("images/banner.jpg") ) }}'); background-size: cover; background-repeat: no-repeat; background-position: center">
         <div class="dark-mask">
-        <div class="container d-flex flex-column"  style="min-height:90vh;">
+        <div class="container d-flex flex-column"  style="min-height:85vh;">
 
         <div class="row mt-auto">
             <div class="col-lg-8 col-sm-12 text-center mx-auto">
@@ -83,8 +80,16 @@
 
     <section class="section-content padding-bottom">
         <div class="container">
-            <h4 class="title-text">Nuevos y Populares</h4>
-            <div class="owl-carousel owl-init slide-items" data-items="5" data-margin="20" data-dots="true" data-nav="true">
+            <header class="clearfix">
+                <div class="title-text">
+                    <span class="h4">Populares</span>
+                    <div class="btn-group btn-group-sm float-right">
+                        <button type="button" class="custom-nav-first owl-custom-prev btn btn-secondary"> < </button>
+                        <button type="button" class="custom-nav-first owl-custom-next btn btn-secondary"> > </button>
+                    </div>
+                </div>
+            </header>
+            <div class="owl-carousel owl-init slide-items" id="slide_custom_nav" data-custom-nav="custom-nav-first" data-items="5" data-margin="20" data-dots="true" data-nav="false" data-autoplay="true" data-delay="2000">
                 @php
                     $products = \App\Models\Product::with(['rating', 'sales_details'])
                                     ->withCount('sales_details')
@@ -106,7 +111,9 @@
                                 <div class="img-wrap"> <img src="{{ asset($image) }}" alt="{{ $item->name }}" title="{{ $item->name }}"> </div>
                             </a>
                             <figcaption class="info-wrap">
-                                <a href="{{ url('details/'.$item->slug) }}" class="title">{{ $item->name }}</a>
+                                <div style="height: 1.5em;overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+                                    <a href="{{ url('details/'.$item->slug) }}" class="title" title="{{ $item->name }}">{{ $item->name }}</a>
+                                </div>
                                 <div class="action-wrap">
                                     <a href="https://wa.me/{{ setting('social.whatsapp') ?? '59175199157' }}?text={{ url('details/'.$item->slug) }} Vi%20esto%20en%20tu%20sitio%20web" target="_blank" class="btn btn-success btn-sm float-right"> <i class="fab fa-whatsapp"></i> Whastapp </a>
                                     <div class="price-wrap h5">
@@ -146,11 +153,17 @@
                 <img src="{{ asset('images/loading.gif') }}" alt="empty" width="120px">
             </div>
             <div class="clearfix"></div>
-            <div class="row mt-5" id="list-products"></div>
+            <div class="mt-5" id="list-products"></div>
         </div>
 
     </section>
     <!-- ========================= SECTION CONTENT END// ========================= -->
+@endsection
+
+@section('css')
+    <style>
+
+    </style>
 @endsection
 
 @section('scripts')

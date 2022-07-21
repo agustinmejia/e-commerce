@@ -20,9 +20,15 @@
         <div class="col-md-3 mb-3">
             <div class="card">
                 <figure class="itemside">
-                    <div class="aside"><div class="img-wrap img-sm border-right"><img src="{{ asset($image) }}" alt="{{ $item->name }}"></div></div>
+                    <div class="aside">
+                        <div class="img-wrap img-sm border-right">
+                            <a href="{{ url('details/'.$item->slug) }}" title="{{ $item->name }}"><img src="{{ asset($image) }}" alt="{{ $item->name }}"></a>
+                        </div>
+                    </div>
                     <figcaption class="p-3">
-                        <h6 class="title"><a href="{{ url('details/'.$item->slug) }}">{{ $item->name }}</a></h6>
+                        <div style="height: 2.5em;overflow: hidden; text-overflow: ellipsis;">
+                            <h6 class="title"><a href="{{ url('details/'.$item->slug) }}">{{ $item->name }}</a></h6>
+                        </div>
                         <div class="price-wrap">
                             <span class="price-new b"><small>Bs.</small> {{ $item->price }}</span>
                             {{-- <del class="price-old text-muted">$1980</del> --}}
@@ -36,8 +42,8 @@
         
     @endforelse
 
-    <div class="col-md-12 mt-5">
-        <nav class="float-right">{{ $products->links() }}</nav>
+    <div class="col-md-12 mt-5 text-center" style="overflow: auto">
+        {{ $products->links() }}
     </div>
 </div>
 
