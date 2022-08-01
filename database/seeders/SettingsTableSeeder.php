@@ -244,11 +244,8 @@ class SettingsTableSeeder extends Seeder
                 'id' => 21,
                 'key' => 'ecommerce.template',
                 'display_name' => 'Plantilla',
-                'value' => 'template_1',
-                'details' => '{
-"options": {   "default": "Por defecto",
-"template_1": "Plantilla 1"
-}}',
+                'value' => 'default',
+                'details' => '{"options": {"": "Ninguna","default": "Por defecto","template_1": "Plantilla 1"}}',
                 'type' => 'select_dropdown',
                 'order' => 16,
                 'group' => 'Ecommerce',

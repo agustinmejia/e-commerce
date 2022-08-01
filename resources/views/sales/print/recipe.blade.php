@@ -1,4 +1,4 @@
-@extends('layouts.print.master-portrait', ['title' => 'Recibo de Pago'])
+@extends('layouts.print.master-portrait', ['title' => $sale->proforma ? 'Proforma' : 'Recibo de pago'])
 
 @section('content')
 

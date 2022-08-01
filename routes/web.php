@@ -26,7 +26,10 @@ Route::get('login', function () {
 })->name('login');
 
 Route::get('/', function () {
-    return view('ecommerce.'.setting('ecommerce.template').'.index');
+    if(setting('ecommerce.template')){
+        return view('ecommerce.'.setting('ecommerce.template').'.index');
+    }
+    return redirect()->route('voyager.dashboard');
 });
 
 Route::get('/list/products/filter', function () {

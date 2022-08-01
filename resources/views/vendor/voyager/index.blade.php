@@ -15,8 +15,8 @@
         </div>
         
         @php
-            $sales = App\Models\Sale::with('payments')->where('deleted_at', null)->get();
-            $sales_today = App\Models\Sale::where('deleted_at', null)->whereDate('date', date('Y-m-d'))->get();
+            $sales = App\Models\Sale::with('payments')->where('proforma', '<>', 1)->where('deleted_at', null)->get();
+            $sales_today = App\Models\Sale::where('deleted_at', null)->where('proforma', '<>', 1)->whereDate('date', date('Y-m-d'))->get();
             $total_debt = $sales->sum('total') - $sales->sum('discount');
             foreach ($sales as $item) {
                 $total_debt -= $item->payments->sum('amount');
@@ -103,7 +103,7 @@
 @php
     $sales = App\Models\Sale::where('deleted_at', null)->groupBy('date')
                 ->selectRaw('COUNT(id) as count,SUM(total) as total, SUM(discount) as discount, date')
-                ->whereDate('date', '>', date('Y-m-d', strtotime(date('Y-m-d').' -7 days')))->orderBy('date', 'ASC')->get();
+                ->where('proforma', '<>', 1)->whereDate('date', '>', date('Y-m-d', strtotime(date('Y-m-d').' -7 days')))->orderBy('date', 'ASC')->get();
     $payments = App\Models\SalesPayment::where('deleted_at', null)->groupByRaw('DATE(created_at)')
                     ->selectRaw('COUNT(id) as count,SUM(amount) as total, DATE(created_at) as date')
                     ->whereDate('created_at', '>', date('Y-m-d', strtotime(date('Y-m-d').' -7 days')))->orderBy('date', 'ASC')->get();

@@ -1,7 +1,8 @@
 Mejoras en la interface de ecommerce
 
 Instrucciones
-    - Ejecutar los seedes SettingsTableSeeder
+    - Ejecutar los seedes SettingsTableSeeder (para agregar pestaña ecommerce).
+    - Crear campo proforma smallInteger(1) en tabla sales.
 
 Falta
 ☆ crear proforma

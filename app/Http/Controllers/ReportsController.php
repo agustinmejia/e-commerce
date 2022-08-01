@@ -29,10 +29,10 @@ class ReportsController extends Controller
         }
         $data = Sale::with(['user', 'details.product', 'customer', 'payments' => function($q){
                     $q->where('deleted_at', NULL);
-                }])->whereRaw($query)->where('deleted_at', NULL)->get();
+                }])->whereRaw($query)->where('proforma', '<>', 1)->where('deleted_at', NULL)->get();
         if($request->type_show == 'pdf'){
             // return view('reports.sales-list-pdf', compact('data'));
-            $pdf = PDF::loadView('reports.sales-list-pdf', ['data' => $data]);
+            $pdf = PDF::loadView('reports.sales-list-pdf', ['data' => $data])->setPaper('letter', 'landscape');
             return $pdf->stream();
         }else{
             return view('reports.sales-list', compact('data'));

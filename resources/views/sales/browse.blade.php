@@ -38,7 +38,17 @@
                                 <div class="col-sm-6 text-right">
                                     <div class="form-inline">
                                         <label for="input-search" class="control-label">Buscar:</label>
-                                        <input type="search" class="form-control input-sm" id="input-search">
+                                        <div class="input-group">
+                                            <input type="search" class="form-control" id="input-search">
+                                            <span class="input-group-btn">
+                                                <select id="select-status" class="form-control">
+                                                    <option value="">Todas</option>
+                                                    <option value="pendiente">Pendientes</option>
+                                                    <option value="pagada">Pagadas</option>
+                                                    <option value="proforma">Proformas</option>
+                                                </select>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -242,6 +252,7 @@
     <script>
         const URL = "{{ url('admin/sales/list/ajax') }}";
         var paginate = 10;
+        var filterStatus = '';
         $(document).ready(function() {
             let page = "{{ session('page') ?? 1 }}";
             list(page);
@@ -256,12 +267,17 @@
                 paginate = $(this).val();
                 list();
             });
+
+            $('#select-status').change(function(){
+                filterStatus = $(this).val();
+                list();
+            });
         });
 
         function list(page = 1){
             $('#loader-filter').fadeIn('fast');
             let search = $('#input-search').val();
-            $.get(`${URL}?paginate=${paginate}&page=${page}&search=${search}`, function(res){
+            $.get(`${URL}?paginate=${paginate}&page=${page}&search=${search}&status=${filterStatus}`, function(res){
                 $('#loader-filter').fadeOut('fast', function(){
                     $('#data-results').html(res);
                 });

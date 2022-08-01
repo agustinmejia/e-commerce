@@ -33,17 +33,24 @@ class SalesController extends Controller
         $paginate = request('paginate') ?? 10;
         $page = request('page') ?? 1;
         $search = request('search');
+        $status = request('status');
         $data = Sale::with(['user', 'customer', 'details.product.brand', 'details.product.category', 'payments.user', 'payment_schedules' => function($query){
                         $query->where('status', '=', 'pendiente');
                     }])
-                    ->orWhereHas('customer', function($query) use ($search) {
-                        $query->whereRaw($search ? 'full_name like "%'.$search.'%"' : 1);
+                    ->where(function($q) use ($search){
+                        if($search){
+                            $q->orWhereHas('customer', function($query) use ($search) {
+                                $query->whereRaw('full_name like "%'.$search.'%"');
+                            })
+                            ->orWhereHas('user', function($query) use ($search) {
+                                $query->whereRaw('name like "%'.$search.'%"');
+                            })
+                            ->orWhereRaw('id like "%'.$search.'%"')
+                            ->orWhereRaw('DATE_FORMAT(date,"%d/%m/%Y") like "%'.$search.'%"')
+                            ->orWhereRaw('DATE_FORMAT(created_at,"%d/%m/%Y") like "%'.$search.'%"');
+                        }
                     })
-                    ->orWhereHas('user', function($query) use ($search) {
-                        $query->whereRaw($search ? 'name like "%'.$search.'%"' : 1);
-                    })
-                    ->orWhereRaw($search ? 'DATE_FORMAT(date,"%d/%m/%Y") like "%'.$search.'%"' : 1)
-                    ->orWhereRaw($search ? 'DATE_FORMAT(created_at,"%d/%m/%Y") like "%'.$search.'%"' : 1)
+                    ->whereRaw($status ? "status = '$status'" : 1)
                     ->withTrashed()->orderBy('id', 'DESC')->paginate($paginate);
         return view('sales.list', compact('data', 'page'));
     }
@@ -77,7 +84,8 @@ class SalesController extends Controller
                 'user_id' => Auth::user()->id,
                 'date' => $request->date,
                 'customer_id' => $request->customer_id ?? 1,
-                'observations'  => $request->observations
+                'observations'  => $request->observations,
+                'proforma' => $request->proforma ? 1 : 0,
             ]);
 
             Customer::where('id', $request->customer_id)->update(['dni' => $request->dni]);
@@ -93,17 +101,20 @@ class SalesController extends Controller
                 
                 $total += $request->quantity[$i] * $request->price[$i];
                 
-                $product = Product::findOrFail($request->product_id[$i]);
-                $product->stock -= $request->quantity[$i];
-                $product->update();
+                // Si no es proforma se descuenta del stock
+                if (!$request->proforma) {
+                    $product = Product::findOrFail($request->product_id[$i]);
+                    $product->stock -= $request->quantity[$i];
+                    $product->update();
+                }
             }
             Sale::where('id', $sale->id)->update([
                 'total' => $total,
-                'status' => $total == $request->amount ? 'pagada' : 'pendiente'
+                'status' => $request->proforma ? 'proforma' : ($total == $request->amount ? 'pagada' : 'pendiente')
             ]);
 
             // En caso de realizar pago
-            if($request->amount){
+            if($request->amount && !$request->proforma){
                 SalesPayment::create([
                     'sale_id' => $sale->id,
                     'user_id' => Auth::user()->id,
@@ -186,9 +197,13 @@ class SalesController extends Controller
             SalesPayment::where('sale_id', $id)->delete();
 
             foreach($sale->details as $detail){
-                $product = Product::findOrFail($detail->product_id);
-                $product->stock += $detail->quantity;
-                $product->update();
+                
+                // Si no es una proforma se renueva el stock
+                if (!$sale->proforma) {
+                    $product = Product::findOrFail($detail->product_id);
+                    $product->stock += $detail->quantity;
+                    $product->update();
+                }
 
                 // Delete sale detail
                 $sale_detail = SalesDetail::findOrFail($detail->id);

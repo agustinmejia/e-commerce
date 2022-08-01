@@ -11,7 +11,7 @@
 
 @section('content')
     <div class="page-content edit-add container-fluid">
-        <form action="{{ route('sales.store') }}" method="post">
+        <form id="form-sale" action="{{ route('sales.store') }}" method="post">
             @csrf
             <div class="row">
                 <div class="col-md-8">
@@ -23,7 +23,7 @@
                                     <select class="form-control" id="select-product_id"></select>
                                 </div>
                             </div>
-                            <div class="col-md-12" style="height: 350px; max-height: 350px; overflow-y: auto">
+                            <div class="col-md-12" style="height: 355px; max-height: 355px; overflow-y: auto">
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-hover">
                                         <thead>
@@ -54,7 +54,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="panel panel-bordered">
-                        <div class="panel-body">
+                        <div class="panel-body" style="padding-bottom: 0px">
                             <div class="form-group col-md-12">
                                 <label for="customer_id">Cliente</label>
                                 <div class="input-group">
@@ -84,11 +84,17 @@
                             <div class="form-group col-md-12">
                                 <textarea name="observations" class="form-control" rows="3" placeholder="Observaciones"></textarea>
                             </div>
-                            <div class="form-group col-md-12">
+                            <div class="form-group col-md-4">
+                                <div class="checkbox">
+                                    <label><input type="checkbox" id="checkbox-proforma" name="proforma" value="1">Proforma</label>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-8">
                                 <h2 class="text-right"><small>Total: Bs.</small> <b id="label-total">0.00</b></h2>
                             </div>
-                            <div class="form-group col-md-12 text-right">
-                                <button type="submit" class="btn btn-primary btn-block">Vender <i class="voyager-basket"></i></button>
+                            <div class="form-group col-md-12 text-center">
+                                <button type="submit" id="btn-submit" class="btn btn-primary btn-block">Vender <i class="voyager-basket"></i></button>
+                                <a href="{{ route('sales.index') }}" >Volver a la lista</a>
                             </div>
                         </div>
                     </div>
@@ -361,6 +367,19 @@
                     $('#modal-create-customer').modal('hide');
                 });
             });
+
+            $('#checkbox-proforma').click(function(){
+                let checked = $(this).is(':checked')
+                if(checked){
+                    $('#btn-submit').removeClass('btn-primary');
+                    $('#btn-submit').addClass('btn-danger');
+                    $('#btn-submit').html('Generar proforma <i class="voyager-file-text"></i>');
+                }else{
+                    $('#btn-submit').removeClass('btn-danger');
+                    $('#btn-submit').addClass('btn-primary');
+                    $('#btn-submit').html('Vender <i class="voyager-basket"></i>');
+                }
+            });
         });
 
         function getSubtotal(id){
@@ -379,7 +398,7 @@
             $('#input-amount').attr('max', total.toFixed(2));
             
             // Si la opción de ingresar el monto recibido está deshabilitada se debe autocompletar el input
-            if(!typeAmountReceived){
+            if(!typeAmountReceived && !$('#checkbox-proforma').is(':checked')){
                 $('#input-amount').attr('value', total.toFixed(2));
             }
         }

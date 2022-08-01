@@ -22,21 +22,23 @@
         }
         #watermark {
             position: fixed;
-            top: 300px;
+            top: 250px;
             opacity: 0.1;
             z-index:  -1;
+            width: 100%;
+            text-align: center
         }
         #watermark img{
             position: relative;
             width: 300px;
-            left: 220px;
+            /* left: 220px; */
         }
     </style>
     @yield('css')
 </head>
 <body>
     @php
-        $icon = url('storage').'/'.setting('admin.icon_image') ?? asset('images/icon.png');
+        $icon = setting('admin.icon_image') ? url('storage').'/'.setting('admin.icon_image') : asset('images/icon.png');
     @endphp
     <div id="watermark">
         <img src="{{ $icon }}" /> 
@@ -71,7 +73,7 @@
                 </td>
                 <td align="right">
                     <div>
-                        <h1 style="margin: 0px; padding: 0px;">{{ $title }}</h1>
+                        <h1 style="margin: 0px; padding: 0px;">{{ strtoupper($title) }}</h1>
                         <small>Generado por {{ Auth::user()->name }}</small> <br>
                         <small>{{ date('d/m/Y H:i') }}</small>
                     </div>

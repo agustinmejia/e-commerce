@@ -17,6 +17,7 @@ class Sale extends Model
         'total',
         'discount',
         'observations',
+        'proforma',
         'status'
     ];
 

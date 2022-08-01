@@ -21,6 +21,7 @@ class CreateSalesTable extends Migration
             $table->decimal('total', 10, 2)->nullable();
             $table->decimal('discount', 10, 2)->nullable()->default(0);
             $table->text('observations')->nullable();
+            $table->smallInteger('proforma', 1)->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
             $table->softDeletes();

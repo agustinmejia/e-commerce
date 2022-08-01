@@ -49,6 +49,8 @@
                                 <span class="label label-primary">{{ $item->status }}</span>
                             @elseif ($item->status == 'anulada')
                                 <span class="label label-danger">{{ $item->status }}</span>
+                            @elseif ($item->status == 'proforma')
+                                <span class="label label-default">{{ $item->status }}</span>
                             @endif
                         </td>
                         <td>{{ $item->observations ?? 'Ninguna' }}</td>
@@ -75,10 +77,12 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <a href="#" data-toggle="modal" data-target="#show-modal" data-item='@json($item)' title="Ver" class="btn btn-sm btn-warning view">
-                                    <i class="voyager-eye"></i> <span class="hidden-xs hidden-sm">Ver</span>
-                                </a>
-                                @if (!$item->deleted_at)
+                                @if (!$item->proforma)
+                                    <a href="#" data-toggle="modal" data-target="#show-modal" data-item='@json($item)' title="Ver" class="btn btn-sm btn-warning view">
+                                        <i class="voyager-eye"></i> <span class="hidden-xs hidden-sm">Ver</span>
+                                    </a>
+                                @endif
+                                @if (!$item->deleted_at && !$item->proforma)
                                     <button type="button" onclick="deleteItem({{ $item->id }})" data-toggle="modal" data-target="#delete-modal" title="Eliminar" class="btn btn-sm btn-danger edit">
                                         <i class="voyager-trash"></i> <span class="hidden-xs hidden-sm">Borrar</span>
                                     </button>
